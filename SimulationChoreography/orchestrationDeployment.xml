@@ -1,0 +1,349 @@
+<?xml version='1.0'?>
+<!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid.dtd">
+<platform version="3">
+  <process host="Jacquelin" function="br.usp.ime.br.simulation.orchestration.Orchestrator">
+     <argument value="5000"/>  <!-- Amount of orchestration requests -->
+     <argument value="500"/>   <!-- Requests per second -->
+     <argument value="10"/>    <!-- Size of each returned value -->
+     <argument value="21"/>    <!-- Amount of orchestrated service providers -->
+  </process>
+  
+  <process host="iRMX" function="br.usp.ime.br.simulation.datatypes.Service">
+     <argument value="supermarket"/>  <!-- Service Name -->
+     
+     <!-- Method wsMethod1 -->
+     <argument value="getPrice"/>  <!-- Service Method Name -->
+     <argument value="300"/>  <!-- Method computing size -->
+     <argument value="100"/>  <!-- Input File Size -->
+     <argument value="200"/>  <!-- Output File Size -->
+
+	 <!-- Method wsMethod2 -->
+     <argument value="sellProduct"/>  <!-- Service Method Name -->
+     <argument value="1000"/>  <!-- Method computing size -->
+     <argument value="200"/>  <!-- Input File Size -->
+     <argument value="50"/>  <!-- Output File Size -->
+  </process>
+ 
+   <process host="Bousquet" function="br.usp.ime.br.simulation.datatypes.Service">
+     <argument value="supermarket"/>  <!-- Service Name -->
+     
+     <!-- Method wsMethod1 -->
+     <argument value="getPrice"/>  <!-- Service Method Name -->
+     <argument value="300"/>  <!-- Method computing size -->
+     <argument value="100"/>  <!-- Input File Size -->
+     <argument value="200"/>  <!-- Output File Size -->
+
+	 <!-- Method wsMethod2 -->
+     <argument value="sellProduct"/>  <!-- Service Method Name -->
+     <argument value="1000"/>  <!-- Method computing size -->
+     <argument value="200"/>  <!-- Input File Size -->
+     <argument value="50"/>  <!-- Output File Size -->
+  </process>
+  
+  <process host="Soucy" function="br.usp.ime.br.simulation.datatypes.Service">
+     <argument value="wsProvider1"/>  <!-- Service Name -->
+     
+     <!-- Method wsMethod1 -->
+     <argument value="wsMethod1"/>  <!-- Service Method Name -->
+     <argument value="300"/>  <!-- Method computing size -->
+     <argument value="100"/>  <!-- Input File Size -->
+     <argument value="200"/>  <!-- Output File Size -->
+
+	 <!-- Method wsMethod2 -->
+     <argument value="wsMethod2"/>  <!-- Service Method Name -->
+     <argument value="1000"/>  <!-- Method computing size -->
+     <argument value="200"/>  <!-- Input File Size -->
+     <argument value="50"/>  <!-- Output File Size -->
+  </process>
+
+
+  <process host="Casavant" function="br.usp.ime.br.simulation.datatypes.Service">
+     <argument value="wsProvider1"/>  <!-- Service Name -->
+     
+     <!-- Method wsMethod1 -->
+     <argument value="wsMethod1"/>  <!-- Service Method Name -->
+     <argument value="300"/>  <!-- Method computing size -->
+     <argument value="100"/>  <!-- Input File Size -->
+     <argument value="200"/>  <!-- Output File Size -->
+
+	 <!-- Method wsMethod2 -->
+     <argument value="wsMethod2"/>  <!-- Service Method Name -->
+     <argument value="1000"/>  <!-- Method computing size -->
+     <argument value="200"/>  <!-- Input File Size -->
+     <argument value="50"/>  <!-- Output File Size -->
+  </process>
+
+  <process host="Jackson" function="br.usp.ime.br.simulation.datatypes.Service">
+     <argument value="wsProvider1"/>  <!-- Service Name -->
+     
+     <!-- Method wsMethod1 -->
+     <argument value="wsMethod1"/>  <!-- Service Method Name -->
+     <argument value="300"/>  <!-- Method computing size -->
+     <argument value="100"/>  <!-- Input File Size -->
+     <argument value="200"/>  <!-- Output File Size -->
+
+	 <!-- Method wsMethod2 -->
+     <argument value="wsMethod2"/>  <!-- Service Method Name -->
+     <argument value="1000"/>  <!-- Method computing size -->
+     <argument value="200"/>  <!-- Input File Size -->
+     <argument value="50"/>  <!-- Output File Size -->
+  </process>
+
+  <process host="Geoff" function="br.usp.ime.br.simulation.datatypes.Service">
+     <argument value="wsProvider1"/>  <!-- Service Name -->
+     
+     <!-- Method wsMethod1 -->
+     <argument value="wsMethod1"/>  <!-- Service Method Name -->
+     <argument value="300"/>  <!-- Method computing size -->
+     <argument value="100"/>  <!-- Input File Size -->
+     <argument value="200"/>  <!-- Output File Size -->
+
+	 <!-- Method wsMethod2 -->
+     <argument value="wsMethod2"/>  <!-- Service Method Name -->
+     <argument value="1000"/>  <!-- Method computing size -->
+     <argument value="200"/>  <!-- Input File Size -->
+     <argument value="50"/>  <!-- Output File Size -->
+  </process>
+
+  <process host="Disney" function="br.usp.ime.br.simulation.datatypes.Service">
+     <argument value="wsProvider1"/>  <!-- Service Name -->
+     
+     <!-- Method wsMethod1 -->
+     <argument value="wsMethod1"/>  <!-- Service Method Name -->
+     <argument value="300"/>  <!-- Method computing size -->
+     <argument value="100"/>  <!-- Input File Size -->
+     <argument value="200"/>  <!-- Output File Size -->
+
+	 <!-- Method wsMethod2 -->
+     <argument value="wsMethod2"/>  <!-- Service Method Name -->
+     <argument value="1000"/>  <!-- Method computing size -->
+     <argument value="200"/>  <!-- Input File Size -->
+     <argument value="50"/>  <!-- Output File Size -->
+  </process>
+  
+  <process host="McGee" function="br.usp.ime.br.simulation.datatypes.Service">
+     <argument value="wsProvider1"/>  <!-- Service Name -->
+     
+     <!-- Method wsMethod1 -->
+     <argument value="wsMethod1"/>  <!-- Service Method Name -->
+     <argument value="300"/>  <!-- Method computing size -->
+     <argument value="100"/>  <!-- Input File Size -->
+     <argument value="200"/>  <!-- Output File Size -->
+
+	 <!-- Method wsMethod2 -->
+     <argument value="wsMethod2"/>  <!-- Service Method Name -->
+     <argument value="1000"/>  <!-- Method computing size -->
+     <argument value="200"/>  <!-- Input File Size -->
+     <argument value="50"/>  <!-- Output File Size -->
+  </process>
+
+
+  <process host="Gatien" function="br.usp.ime.br.simulation.datatypes.Service">
+     <argument value="wsProvider1"/>  <!-- Service Name -->
+     
+     <!-- Method wsMethod1 -->
+     <argument value="wsMethod1"/>  <!-- Service Method Name -->
+     <argument value="300"/>  <!-- Method computing size -->
+     <argument value="100"/>  <!-- Input File Size -->
+     <argument value="200"/>  <!-- Output File Size -->
+
+	 <!-- Method wsMethod2 -->
+     <argument value="wsMethod2"/>  <!-- Service Method Name -->
+     <argument value="1000"/>  <!-- Method computing size -->
+     <argument value="200"/>  <!-- Input File Size -->
+     <argument value="50"/>  <!-- Output File Size -->
+  </process>
+
+  <process host="Laroche" function="br.usp.ime.br.simulation.datatypes.Service">
+     <argument value="wsProvider1"/>  <!-- Service Name -->
+     
+     <!-- Method wsMethod1 -->
+     <argument value="wsMethod1"/>  <!-- Service Method Name -->
+     <argument value="300"/>  <!-- Method computing size -->
+     <argument value="100"/>  <!-- Input File Size -->
+     <argument value="200"/>  <!-- Output File Size -->
+
+	 <!-- Method wsMethod2 -->
+     <argument value="wsMethod2"/>  <!-- Service Method Name -->
+     <argument value="1000"/>  <!-- Method computing size -->
+     <argument value="200"/>  <!-- Input File Size -->
+     <argument value="50"/>  <!-- Output File Size -->
+  </process>
+ 
+  <process host="Tanguay" function="br.usp.ime.br.simulation.datatypes.Service">
+     <argument value="wsProvider1"/>  <!-- Service Name -->
+     
+     <!-- Method wsMethod1 -->
+     <argument value="wsMethod1"/>  <!-- Service Method Name -->
+     <argument value="300"/>  <!-- Method computing size -->
+     <argument value="100"/>  <!-- Input File Size -->
+     <argument value="200"/>  <!-- Output File Size -->
+
+	 <!-- Method wsMethod2 -->
+     <argument value="wsMethod2"/>  <!-- Service Method Name -->
+     <argument value="1000"/>  <!-- Method computing size -->
+     <argument value="200"/>  <!-- Input File Size -->
+     <argument value="50"/>  <!-- Output File Size -->
+  </process>
+  
+  <process host="Morin" function="br.usp.ime.br.simulation.datatypes.Service">
+     <argument value="wsProvider1"/>  <!-- Service Name -->
+     
+     <!-- Method wsMethod1 -->
+     <argument value="wsMethod1"/>  <!-- Service Method Name -->
+     <argument value="300"/>  <!-- Method computing size -->
+     <argument value="100"/>  <!-- Input File Size -->
+     <argument value="200"/>  <!-- Output File Size -->
+
+	 <!-- Method wsMethod2 -->
+     <argument value="wsMethod2"/>  <!-- Service Method Name -->
+     <argument value="1000"/>  <!-- Method computing size -->
+     <argument value="200"/>  <!-- Input File Size -->
+     <argument value="50"/>  <!-- Output File Size -->
+  </process>
+  
+  <process host="Ethernet" function="br.usp.ime.br.simulation.datatypes.Service">
+     <argument value="wsProvider1"/>  <!-- Service Name -->
+     
+     <!-- Method wsMethod1 -->
+     <argument value="wsMethod1"/>  <!-- Service Method Name -->
+     <argument value="300"/>  <!-- Method computing size -->
+     <argument value="100"/>  <!-- Input File Size -->
+     <argument value="200"/>  <!-- Output File Size -->
+
+	 <!-- Method wsMethod2 -->
+     <argument value="wsMethod2"/>  <!-- Service Method Name -->
+     <argument value="1000"/>  <!-- Method computing size -->
+     <argument value="200"/>  <!-- Input File Size -->
+     <argument value="50"/>  <!-- Output File Size -->
+  </process>
+
+  <process host="Bellemarre" function="br.usp.ime.br.simulation.datatypes.Service">
+     <argument value="wsProvider1"/>  <!-- Service Name -->
+     
+     <!-- Method wsMethod1 -->
+     <argument value="wsMethod1"/>  <!-- Service Method Name -->
+     <argument value="300"/>  <!-- Method computing size -->
+     <argument value="100"/>  <!-- Input File Size -->
+     <argument value="200"/>  <!-- Output File Size -->
+
+	 <!-- Method wsMethod2 -->
+     <argument value="wsMethod2"/>  <!-- Service Method Name -->
+     <argument value="1000"/>  <!-- Method computing size -->
+     <argument value="200"/>  <!-- Input File Size -->
+     <argument value="50"/>  <!-- Output File Size -->
+  </process>
+  
+  <process host="Harry" function="br.usp.ime.br.simulation.datatypes.Service">
+     <argument value="wsProvider1"/>  <!-- Service Name -->
+     
+     <!-- Method wsMethod1 -->
+     <argument value="wsMethod1"/>  <!-- Service Method Name -->
+     <argument value="300"/>  <!-- Method computing size -->
+     <argument value="100"/>  <!-- Input File Size -->
+     <argument value="200"/>  <!-- Output File Size -->
+
+	 <!-- Method wsMethod2 -->
+     <argument value="wsMethod2"/>  <!-- Service Method Name -->
+     <argument value="1000"/>  <!-- Method computing size -->
+     <argument value="200"/>  <!-- Input File Size -->
+     <argument value="50"/>  <!-- Output File Size -->
+  </process>
+  
+  <process host="Olivier" function="br.usp.ime.br.simulation.datatypes.Service">
+     <argument value="wsProvider1"/>  <!-- Service Name -->
+     
+     <!-- Method wsMethod1 -->
+     <argument value="wsMethod1"/>  <!-- Service Method Name -->
+     <argument value="300"/>  <!-- Method computing size -->
+     <argument value="100"/>  <!-- Input File Size -->
+     <argument value="200"/>  <!-- Output File Size -->
+
+	 <!-- Method wsMethod2 -->
+     <argument value="wsMethod2"/>  <!-- Service Method Name -->
+     <argument value="1000"/>  <!-- Method computing size -->
+     <argument value="200"/>  <!-- Input File Size -->
+     <argument value="50"/>  <!-- Output File Size -->
+  </process>
+  
+  <process host="Boucherville" function="br.usp.ime.br.simulation.datatypes.Service">
+     <argument value="wsProvider1"/>  <!-- Service Name -->
+     
+     <!-- Method wsMethod1 -->
+     <argument value="wsMethod1"/>  <!-- Service Method Name -->
+     <argument value="300"/>  <!-- Method computing size -->
+     <argument value="100"/>  <!-- Input File Size -->
+     <argument value="200"/>  <!-- Output File Size -->
+
+	 <!-- Method wsMethod2 -->
+     <argument value="wsMethod2"/>  <!-- Service Method Name -->
+     <argument value="1000"/>  <!-- Method computing size -->
+     <argument value="200"/>  <!-- Input File Size -->
+     <argument value="50"/>  <!-- Output File Size -->
+  </process>
+ 
+  <process host="Point_Claire" function="br.usp.ime.br.simulation.datatypes.Service">
+     <argument value="wsProvider1"/>  <!-- Service Name -->
+     
+     <!-- Method wsMethod1 -->
+     <argument value="wsMethod1"/>  <!-- Service Method Name -->
+     <argument value="300"/>  <!-- Method computing size -->
+     <argument value="100"/>  <!-- Input File Size -->
+     <argument value="200"/>  <!-- Output File Size -->
+
+	 <!-- Method wsMethod2 -->
+     <argument value="wsMethod2"/>  <!-- Service Method Name -->
+     <argument value="1000"/>  <!-- Method computing size -->
+     <argument value="200"/>  <!-- Input File Size -->
+     <argument value="50"/>  <!-- Output File Size -->
+  </process>
+  
+  <process host="Kansas" function="br.usp.ime.br.simulation.datatypes.Service">
+     <argument value="wsProvider1"/>  <!-- Service Name -->
+     
+     <!-- Method wsMethod1 -->
+     <argument value="wsMethod1"/>  <!-- Service Method Name -->
+     <argument value="300"/>  <!-- Method computing size -->
+     <argument value="100"/>  <!-- Input File Size -->
+     <argument value="200"/>  <!-- Output File Size -->
+
+	 <!-- Method wsMethod2 -->
+     <argument value="wsMethod2"/>  <!-- Service Method Name -->
+     <argument value="1000"/>  <!-- Method computing size -->
+     <argument value="200"/>  <!-- Input File Size -->
+     <argument value="50"/>  <!-- Output File Size -->
+  </process>
+  
+  <process host="King" function="br.usp.ime.br.simulation.datatypes.Service">
+     <argument value="wsProvider1"/>  <!-- Service Name -->
+     
+     <!-- Method wsMethod1 -->
+     <argument value="wsMethod1"/>  <!-- Service Method Name -->
+     <argument value="300"/>  <!-- Method computing size -->
+     <argument value="100"/>  <!-- Input File Size -->
+     <argument value="200"/>  <!-- Output File Size -->
+
+	 <!-- Method wsMethod2 -->
+     <argument value="wsMethod2"/>  <!-- Service Method Name -->
+     <argument value="1000"/>  <!-- Method computing size -->
+     <argument value="200"/>  <!-- Input File Size -->
+     <argument value="50"/>  <!-- Output File Size -->
+  </process>
+  
+  <process host="Lapointe" function="br.usp.ime.br.simulation.datatypes.Service">
+     <argument value="wsProvider1"/>  <!-- Service Name -->
+     
+     <!-- Method wsMethod1 -->
+     <argument value="wsMethod1"/>  <!-- Service Method Name -->
+     <argument value="300"/>  <!-- Method computing size -->
+     <argument value="100"/>  <!-- Input File Size -->
+     <argument value="200"/>  <!-- Output File Size -->
+
+	 <!-- Method wsMethod2 -->
+     <argument value="wsMethod2"/>  <!-- Service Method Name -->
+     <argument value="1000"/>  <!-- Method computing size -->
+     <argument value="200"/>  <!-- Input File Size -->
+     <argument value="50"/>  <!-- Output File Size -->
+  </process>
+  
+</platform>

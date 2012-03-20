@@ -1,0 +1,32 @@
+<?xml version='1.0'?>
+ <!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid.dtd">
+ <platform version="3">
+ <AS  id="AS0"  routing="Full">
+   <host id="Jacquelin" power="137333000"/>
+   <host id="iRMX" power="68667000"/>
+   <host id="Bellemarre" power="34333000"/>
+
+   <link id="10" bandwidth="10000" latency="0.01"/>
+   <link id="100" bandwidth="100000" latency="0.02"/>
+   <link id="1000" bandwidth="1000000" latency="0.02"/>
+
+   <route src="Jacquelin" dst="iRMX" symmetrical="NO">
+       <link_ctn id="100"/>
+   </route>
+   <route src="Jacquelin" dst="Bellemarre" symmetrical="NO">
+       <link_ctn id="100"/>
+   </route>
+   <route src="Bellemarre" dst="Jacquelin" symmetrical="NO">
+      <link_ctn id="100"/>
+   </route>
+   <route src="Bellemarre" dst="iRMX" symmetrical="NO">
+      <link_ctn id="100"/>
+   </route>
+   <route src="iRMX" dst="Jacquelin" symmetrical="NO">
+      <link_ctn id="100"/>
+   </route>
+   <route src="iRMX" dst="Bellemarre" symmetrical="NO">
+      <link_ctn id="100"/>
+   </route>
+ </AS>
+ </platform>
