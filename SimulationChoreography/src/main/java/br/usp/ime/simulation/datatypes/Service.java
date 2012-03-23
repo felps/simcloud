@@ -39,9 +39,11 @@ public class Service extends Process {
 
 		while (true) {
 			Task task = Task.receive("WS_" + wsName + "_at_" + host.getName());
+			Msg.info("Received task from "+ task.getSource().getName());
 
 			if (task instanceof WsRequest) {
 				executeMethod((WsRequest) task);
+				
 			} 
 			
 			if (task instanceof FinalizeTask)
@@ -55,13 +57,14 @@ public class Service extends Process {
 		WsMethod method = requestWsMethodTask(request.serviceMethod);
 
 		method.execute();
-
+		Msg.info("Task completed");
 		String responseMailbox = request.senderMailbox;
 		double outputFileSize = method.getOutputFileSizeInBytes();
 
 		ResponseTask response = new ResponseTask(outputFileSize);
 		response.serviceName = wsName;
 
+		Msg.info("Sending response");
 		response.send(responseMailbox);
 	}
 

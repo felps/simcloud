@@ -7,6 +7,8 @@ import org.simgrid.msg.Msg;
 import org.simgrid.msg.MsgException;
 import org.simgrid.msg.Task;
 
+import commTime.FinalizeTask;
+
 public class Orchestration {
 	private ArrayList<WsRequest> requests;
 	private HashMap<WsRequest, ArrayList<WsRequest>> dependsOn;
@@ -104,6 +106,21 @@ public class Orchestration {
 
 		serviceMethodsMailboxEndpoints.put(wsMethodName, "WS_" + wsName
 				+ "_at_" + hostname);
+
+	}
+	
+	public void finalizeOrchestration() throws MsgException {
+		ArrayList<String> removedMailboxes = new ArrayList<String>();
+		Msg.info("Telling everyone the orchestration is done...");
+		for (String mailbox : getServiceMethodsMailboxes().values()) {
+			if (!removedMailboxes.contains(mailbox)) {
+				FinalizeTask task = new FinalizeTask();
+				task.send(mailbox);
+				removedMailboxes.add(mailbox);
+			}
+		}
+
+		Msg.info("Orchestration is done. Bye!");
 
 	}
 }
