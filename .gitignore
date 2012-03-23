@@ -1,0 +1,6 @@
+SimulationChoreography/bin/*
+SimulationChoreography/.metadata/*
+SimulationChoreography/.settings
+SimulationChoreography/.classpath
+*.project
+*.class
