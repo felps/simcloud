@@ -9,6 +9,8 @@ public class WsRequest extends Task{
 	public String serviceMethod;
 	public double inputMessageSize;
 	public boolean done = false;
+	public int instanceId = -1;
+	public String destination;
 	
 	public WsRequest(String wsName, String wsMethod, double inputFileSize, String senderMailbox) {
 		super(wsMethod, 1, inputFileSize);

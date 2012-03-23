@@ -11,15 +11,22 @@ import commTime.FinalizeTask;
 
 public class Orchestration {
 	private ArrayList<WsRequest> requests;
+
 	private HashMap<WsRequest, ArrayList<WsRequest>> dependsOn;
-	private HashMap<WsRequest, ArrayList<WsRequest>> dependsUpon;
+	private HashMap<WsRequest, ArrayList<WsRequest>> isDependencyOf;
 	private String deploymentInfo;
+	private int id;
 	private HashMap<String, String> serviceMethodsMailboxEndpoints = new HashMap<String, String>();
 
-	public Orchestration() {
+	public Orchestration(int id) {
 		dependsOn = new HashMap<WsRequest, ArrayList<WsRequest>>();
-		dependsUpon = new HashMap<WsRequest, ArrayList<WsRequest>>();
+		isDependencyOf = new HashMap<WsRequest, ArrayList<WsRequest>>();
 		requests = new ArrayList<WsRequest>();
+		this.id = id;
+	}
+	
+	public int getId(){
+		return id;
 	}
 
 	public HashMap<String, String> getServiceMethodsMailboxes() {
@@ -29,7 +36,7 @@ public class Orchestration {
 	public void addRequest(WsRequest request){
 		requests.add(request);
 		dependsOn.put(request, (new ArrayList<WsRequest>()));
-		dependsUpon.put(request, (new ArrayList<WsRequest>()));
+		isDependencyOf.put(request, (new ArrayList<WsRequest>()));
 	}
 	
 	public void addDependency(WsRequest request, WsRequest dependency){
@@ -39,25 +46,22 @@ public class Orchestration {
 		}
 		
 		dependsOn.get(request).add(dependency);
-		dependsUpon.get(dependency).add(request);
+		isDependencyOf.get(dependency).add(request);
 	}
 	
 	public void parseBpelFile(String fileName) {
 		Msg.info("Creating requests");
 		WsRequest ws1 = new WsRequest("supermarket", "getPrice", 30000, null);
+		ws1.instanceId = this.id;
 
-		requests.add(ws1);
-		dependsUpon.put(ws1, new ArrayList<WsRequest>());
-		dependsOn.put(ws1, new ArrayList<WsRequest>());
-
+		addRequest(ws1);
+		/*
 		WsRequest ws2 = new WsRequest("supermarket", "sellProduct", 50000, null);
-
-		requests.add(ws2);
-		ArrayList<WsRequest> deps = (new ArrayList<WsRequest>());
-		deps.add(ws1);
-		dependsUpon.put(ws2, deps);
-		dependsOn.put(ws2, new ArrayList<WsRequest>());
-
+		ws2.instanceId = this.id;
+		
+		addRequest(ws2);
+		addDependency(ws2, ws1);
+		*/
 		Msg.info("Requests created");
 	}
 
@@ -75,7 +79,7 @@ public class Orchestration {
 
 	public void notifyTaskConclusion(WsRequest request) {
 		request.done = true;
-		for (WsRequest dependency : dependsUpon.get(request)) {
+		for (WsRequest dependency : isDependencyOf.get(request)) {
 			removeThisRequestsDependencyOn(request, dependency);
 		}
 	}

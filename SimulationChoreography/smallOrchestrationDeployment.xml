@@ -17,7 +17,7 @@
 
 	<process host="Jacquelin"
 		function="br.usp.ime.simulation.orchestration.Orchestrator">
-		<argument value="5000" />  <!-- Amount of orchestration requests -->
+		<argument value="5" />  <!-- Amount of orchestration requests -->
 		<argument value="500" />   <!-- Requests per second -->
 		<argument value="10" />    <!-- Size of each returned value -->
 		<argument value="1" />    <!-- Amount of orchestrated service providers -->

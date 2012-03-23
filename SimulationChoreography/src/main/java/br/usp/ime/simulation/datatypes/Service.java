@@ -43,7 +43,6 @@ public class Service extends Process {
 
 			if (task instanceof WsRequest) {
 				executeMethod((WsRequest) task);
-				
 			} 
 			
 			if (task instanceof FinalizeTask)
@@ -63,6 +62,8 @@ public class Service extends Process {
 
 		ResponseTask response = new ResponseTask(outputFileSize);
 		response.serviceName = wsName;
+		response.instanceId = request.instanceId;
+		response.requestServed = request;
 
 		Msg.info("Sending response");
 		response.send(responseMailbox);

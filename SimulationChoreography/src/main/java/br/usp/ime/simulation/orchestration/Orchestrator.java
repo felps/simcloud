@@ -2,11 +2,15 @@ package br.usp.ime.simulation.orchestration;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashMap;
 
+import org.simgrid.msg.HostFailureException;
 import org.simgrid.msg.Msg;
 import org.simgrid.msg.MsgException;
 import org.simgrid.msg.Process;
 import org.simgrid.msg.Task;
+import org.simgrid.msg.TimeoutException;
+import org.simgrid.msg.TransferFailureException;
 
 import br.usp.ime.simulation.datatypes.Orchestration;
 import br.usp.ime.simulation.datatypes.ResponseTask;
@@ -14,11 +18,14 @@ import br.usp.ime.simulation.datatypes.WsRequest;
 
 import commTime.FinalizeTask;
 
-public class Orchestrator extends Process {
+public class Orchestrator extends ServiceInvoker {
 
 	private String deploymentInfo = "";
 	private String bpelFile = "";
-	private Orchestration orch = new Orchestration();
+	private HashMap<Integer, Orchestration> orchestrationInstances = new HashMap<Integer, Orchestration>();
+	private ArrayList<String> mailboxes = new ArrayList<String>();
+	private String myMailbox = "Orchestrator";
+	private ArrayList<WsRequest> tasksToBeSubmitted = new ArrayList<WsRequest>();
 
 	public void main(String[] args) throws MsgException {
 		if (args.length != 4) {
@@ -26,20 +33,40 @@ public class Orchestrator extends Process {
 			System.exit(1);
 		}
 
-		orch.createServiceList(deploymentInfo);
-		Msg.info("Starting Orchestration...");
-		orchestrate();
+		int ammountOfInstances = Integer.parseInt(args[0]);
+		Msg.info("Starting " + ammountOfInstances + " Orchestrations...");
+		orchestrate(ammountOfInstances);
 	}
 
-	private void orchestrate() throws MsgException {
-		orch.parseBpelFile(bpelFile);
+	private void orchestrate(int ammountOfInstances) throws MsgException {
 
-		while (orch.getReadyTasks().size() > 0) {
+		
+		for (int i = 0; i < ammountOfInstances; i++) {
+			Orchestration instance = new Orchestration(i);
+			instance.createServiceList(deploymentInfo);
+			instance.parseBpelFile(bpelFile);
+			mailboxes.addAll(instance.getServiceMethodsMailboxes().values());
+			orchestrationInstances.put(i, instance);
+		}
 
-			for (WsRequest request : orch.getReadyTasks()) {
-				String chosenMailbox = getWsMailbox(request);
-				if (invokeWsMethod(request, chosenMailbox, "Orchestrator"))
-					orch.notifyTaskConclusion(request);
+		Msg.info("Teste1");
+		sendInitialTasks();
+		Msg.info("Teste2");
+
+		while (!orchestrationInstances.isEmpty()) {
+			ArrayList<Integer> completedInstances = new ArrayList<Integer>();
+			for (Orchestration orch : orchestrationInstances.values()) {
+				if (orch.getReadyTasks().isEmpty()) {
+					Msg.info("No more tasks for orchestration " + orch.getId());
+					completedInstances.add(orch.getId());
+					Msg.info("" + orchestrationInstances.size());
+				} else {
+					submitReadyTasks(orch);
+				}
+			}
+			
+			for (int instanceId : completedInstances){
+				orchestrationInstances.remove(instanceId);
 			}
 		}
 
@@ -47,32 +74,23 @@ public class Orchestrator extends Process {
 
 	}
 
-	private boolean invokeWsMethod(WsRequest request, String destination,
-			String sender) throws MsgException {
+	private void sendInitialTasks() throws MsgException {
+		for (Orchestration orch : orchestrationInstances.values()) {
+			submitReadyTasks(orch);
+		}
+		Msg.info("Done sending tasks");
+	}
 
-		Msg.info("Created Task for " + request.serviceMethod
-				+ "with compute duration of " + request.getComputeDuration()
-				+ " and message size of " + request.inputMessageSize + " at "
-				+ destination);
-
-		request.senderMailbox = sender;
-		request.send(destination);
-
-		Task response = Task.receive(sender);
-
-		if (response instanceof ResponseTask) {
-			Msg.info("Task for " + request.serviceMethod
-					+ " was succesfully executed by " + destination);
-
-			return true;
-		} else {
-			Msg.info("Something went wrong...");
-			System.exit(1);
-			return false;
+	private void submitReadyTasks(Orchestration orch) throws MsgException {
+		Msg.info(orch.getReadyTasks().size() + " tasks are ready!");
+		for (WsRequest request : orch.getReadyTasks()) {
+			String chosenMailbox = getWsMailbox(request, orch);
+			invokeWsMethod(request, chosenMailbox, myMailbox);
+			orch.notifyTaskConclusion(request);
 		}
 	}
 
-	private String getWsMailbox(WsRequest request) {
+	private String getWsMailbox(WsRequest request, Orchestration orch) {
 		String chosenMailbox = " ABSOLUTELY NO ONE (This is an ERROR!)";
 
 		if (orch.getServiceMethodsMailboxes().get(request.serviceMethod) != null) {
@@ -86,7 +104,7 @@ public class Orchestrator extends Process {
 	private void finalizeOrchestration() throws MsgException {
 		ArrayList<String> removedMailboxes = new ArrayList<String>();
 		Msg.info("Telling everyone the orchestration is done...");
-		for (String mailbox : orch.getServiceMethodsMailboxes().values()) {
+		for (String mailbox : mailboxes) {
 			if (!removedMailboxes.contains(mailbox)) {
 				FinalizeTask task = new FinalizeTask();
 				task.send(mailbox);
