@@ -1,7 +1,17 @@
 /SimulationChoreography/bin/*
-/.metadata/*
 /SimulationChoreography/.metadata
 /SimulationChoreography/.settings
 /SimulationChoreography/.classpath
 *.project
 *.class
+**/.classpath
+**/*.jar
+**/*.class
+**/*.log
+.DS_Store
+.settings
+# One should use properties template
+*.properties
+*.orig
+*.log
+*.war
