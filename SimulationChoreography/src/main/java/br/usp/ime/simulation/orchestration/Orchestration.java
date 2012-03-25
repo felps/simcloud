@@ -79,5 +79,17 @@ public class Orchestration {
 	public Map<String, String> getServiceMethodsMailboxEndpoints() {
 		return managerServiceList.getServiceMethodsMailboxEndpoints();
 	}
+	
+	public String getWsMailbox(WsRequest request) {
+		String chosenMailbox = " ABSOLUTELY NO ONE (This is an ERROR!)";
+		Map<String, String> serviceMethodsMailboxEndpoints = getServiceMethodsMailboxEndpoints();
+		
+		if (serviceMethodsMailboxEndpoints.get(request.serviceMethod) != null) {
+			chosenMailbox = serviceMethodsMailboxEndpoints.get(
+					request.serviceMethod);
+		} else
+			Msg.info(request.serviceMethod);
+		return chosenMailbox;
+	}
 
 }

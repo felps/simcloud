@@ -8,11 +8,11 @@ import br.usp.ime.simulation.datatypes.task.WsRequest;
 
 public abstract class ServiceInvoker extends Process{
 
-	protected boolean invokeWsMethod(WsRequest request, String destination, String sender)
+	protected boolean invokeWsMethod(WsRequest request,String sender, String destination)
 			throws MsgException {
 			
 				Msg.info("Created Task for " + request.serviceMethod
-						+ "with compute duration of " + request.getComputeDuration()
+						+ " with compute duration of " + request.getComputeDuration()
 						+ " and message size of " + request.inputMessageSize + " at "
 						+ destination);
 			
@@ -24,12 +24,11 @@ public abstract class ServiceInvoker extends Process{
 				if (response instanceof ResponseTask) {
 					Msg.info("Task for " + request.serviceMethod
 							+ " was succesfully executed by " + destination);
-			
-					return true;
 				} else {
 					Msg.info("Something went wrong...");
 					System.exit(1);
-					return false;
 				}
+			return true;
 			}
+			
 }

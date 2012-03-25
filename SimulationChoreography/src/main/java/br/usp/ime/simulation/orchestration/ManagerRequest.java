@@ -40,12 +40,16 @@ public class ManagerRequest {
 		final List<WsRequest> readyTasks = new ArrayList<WsRequest>();
 		
 		for (WsRequest request : requests) {
-			if (dependsOn.get(request).isEmpty() && !request.done) {
+			if (isReadyTask(request)) {
 				readyTasks.add(request);
 			}
 		}
 
 		return readyTasks;
+	}
+	
+	private boolean isReadyTask(final WsRequest wsRequest){
+		return dependsOn.get(wsRequest).isEmpty() && !wsRequest.done;
 	}
 	
 	public void notifyTaskConclusion(final WsRequest request) {
@@ -56,7 +60,7 @@ public class ManagerRequest {
 	}
 	
 	private void removeThisRequestsDependencyOn(final WsRequest request,
-			WsRequest dependency) {
+			final WsRequest dependency) {
 		dependsOn.get(dependency).remove(request);
 	}
 }

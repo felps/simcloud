@@ -9,21 +9,21 @@ import org.simgrid.msg.MsgException;
 public class ManagerServiceList {
 	private final Map<String, String> serviceMethodsMailboxEndpoints;
 	private String deploymentInfo;
-
+	
+	public ManagerServiceList(){
+		serviceMethodsMailboxEndpoints = new HashMap<String, String>();
+	}
+	
 	public String getDeploymentInfo() {
 		return deploymentInfo;
 	}
 
-	public void setDeploymentInfo(String deploymentInfo) {
+	public void setDeploymentInfo(final String deploymentInfo) {
 		this.deploymentInfo = deploymentInfo;
 	}
 	
 	public Map<String, String> getServiceMethodsMailboxEndpoints() {
 		return serviceMethodsMailboxEndpoints;
-	}
-
-	public ManagerServiceList(){
-		serviceMethodsMailboxEndpoints = new HashMap<String, String>();
 	}
 	
 	public void createServiceList(final String deploymentInfo) {
@@ -33,16 +33,16 @@ public class ManagerServiceList {
 		} catch (MsgException e) {
 			e.printStackTrace();
 		}
-		this.setDeploymentInfo(deploymentInfo);
+		setDeploymentInfo(deploymentInfo);
 	}
 
-	private void parseDeploymentFile(String deploymentFile) throws MsgException {
+	private void parseDeploymentFile(final String deploymentFile) throws MsgException {
 		addNewServiceMethod("supermarket", "getPrice", "Bellemarre");
 		addNewServiceMethod("supermarket", "sellProduct", "Bellemarre");
 	}
 
-	private void addNewServiceMethod(String wsName, String wsMethodName,
-			String hostname) {
+	private void addNewServiceMethod(final String wsName,final String wsMethodName,
+			final String hostname) {
 
 		serviceMethodsMailboxEndpoints.put(wsMethodName, "WS_" + wsName
 				+ "_at_" + hostname);
