@@ -2,7 +2,7 @@
 <!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid.dtd">
 <platform version="3">
 
-	<process host="Bellemarre" function="br.usp.ime.simulation.datatypes.Service">
+	<process host="Bellemarre" function="br.usp.ime.simulation.datatypes.process.Service">
 
 		<argument value="supermarket" />  <!-- Service Name -->
 	
