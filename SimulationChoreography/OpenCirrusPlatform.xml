@@ -1,0 +1,76 @@
+<?xml version='1.0'?>
+ <!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid.dtd">
+ <platform version="3">
+ <AS routing="Full" id="OpenCirrus">
+ <host power="3000000000" id="broker" core="4"></host><!-- power=3Ghz -->
+ <host power="3000000000" id="shipper" core="4"></host>
+ <host power="3000000000" id="supermarket1" core="4"></host>
+ <host power="3000000000" id="supermarket2" core="4"></host>
+ <host power="3000000000" id="supermarket3" core="4"></host>
+ <host power="3000000000" id="registry" core="4"></host>
+ 
+ <link bandwidth="17875000" latency="0.0000967" id="l1"></link><!-- bw in bytes/s and lt in seconds -->
+ <link bandwidth="17875000" latency="0.0000967" id="l2"></link>
+ <link bandwidth="17875000" latency="0.0000967" id="l3"></link>
+ <link bandwidth="17875000" latency="0.0000967" id="l4"></link>
+ <link bandwidth="17875000" latency="0.0000967" id="l5"></link>
+ <link bandwidth="17875000" latency="0.0000967" id="l6"></link>
+ <link bandwidth="17875000" latency="0.0000967" id="l7"></link>
+ <link bandwidth="17875000" latency="0.0000967" id="l8"></link>
+ <link bandwidth="17875000" latency="0.0000967" id="l9"></link>
+ <link bandwidth="17875000" latency="0.0000967" id="l10"></link>
+ <link bandwidth="17875000" latency="0.0000967" id="l11"></link>
+ <link bandwidth="17875000" latency="0.0000967" id="l12"></link>
+ <link bandwidth="17875000" latency="0.0000967" id="l13"></link>
+ <link bandwidth="17875000" latency="0.0000967" id="l14"></link>
+ <link bandwidth="17875000" latency="0.0000967" id="l15"></link>
+ 
+ <route src="broker" dst="shipper">
+ 	<link_ctn id="l1"/>
+ </route>
+ 
+ <route src="broker" dst="supermarket1">
+ 	<link_ctn id="l2"/>
+ </route>
+ 
+ <route src="broker" dst="supermarket2">
+ 	<link_ctn id="l3"/>
+ </route>
+ <route src="broker" dst="supermarket3">
+ 	<link_ctn id="l4"/>
+ </route>
+ <route src="shipper" dst="supermarket1">
+ 	<link_ctn id="l5"/>
+ </route>
+ <route src="shipper" dst="supermarket2">
+ 	<link_ctn id="l6"/>
+ </route>
+ <route src="shipper" dst="supermarket3">
+ 	<link_ctn id="l7"/>
+ </route>
+ <route src="supermarket1" dst="supermarket2">
+ 	<link_ctn id="l8"/>
+ </route>
+ <route src="supermarket1" dst="supermarket3">
+ 	<link_ctn id="l9"/>
+ </route>
+ <route src="supermarket2" dst="supermarket3">
+ 	<link_ctn id="l10"/>
+ </route>
+ <route src="registry" dst="broker">
+ 	<link_ctn id="l11"/>
+ </route>
+ <route src="registry" dst="shipper">
+ 	<link_ctn id="l12"/>
+ </route>
+ <route src="registry" dst="supermarket1">
+ 	<link_ctn id="l13"/>
+ </route>
+ <route src="registry" dst="supermarket2">
+ 	<link_ctn id="l14"/>
+ </route>
+ <route src="registry" dst="supermarket3">
+ 	<link_ctn id="l15"/>
+ </route>
+ </AS>
+</platform>

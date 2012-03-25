@@ -1,0 +1,62 @@
+<?xml version='1.0'?>
+<!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid.dtd">
+<platform version="3">
+	
+	<process function="br.usp.ime.simulation.datatypes.process.Service" host="shipper">
+		<argument value="shipper" />  <!-- Service Name -->
+		<argument value="getDeliveryStatus" />  <!-- Service Method Name -->
+		<argument value="1000" /> <!-- need update -->
+		<argument value="200" />  <!-- need update -->
+		
+	<argument value="setDelivery" />  <!-- Service Method Name -->
+		<argument value="1000" /> <!-- need update -->
+		<argument value="200" />  <!-- need update -->
+	</process>
+	
+	<process function="br.usp.ime.simulation.datatypes.process.Service" host="supermarket1">
+		<argument value="supermarket" />  <!-- Service Name -->
+		<argument value="getPrice" />  <!-- Service Method Name -->
+		<argument value="300" />  <!-- need update -->
+		<argument value="100" />  <!-- need update -->
+
+		<argument value="purchase" />  <!-- Service Method Name -->
+		<argument value="1000" /> <!-- need update -->
+		<argument value="200" />  <!-- need update -->
+	</process>
+	
+	<process function="br.usp.ime.simulation.datatypes.process.Service" host="supermarket2">
+		<argument value="supermarket" />  <!-- Service Name -->
+		<argument value="getPrice" />  <!-- Service Method Name -->
+		<argument value="300" />  <!-- need update -->
+		<argument value="100" />  <!-- need update -->
+
+		<argument value="purchase" />  <!-- Service Method Name -->
+		<argument value="1000" /> <!-- need update -->
+		<argument value="200" />  <!-- need update -->
+	</process>
+	
+	<process function="br.usp.ime.simulation.datatypes.process.Service" host="supermarket3">
+		<argument value="supermarket" />  <!-- Service Name -->
+		<argument value="getPrice" />  <!-- Service Method Name -->
+		<argument value="300" />  <!-- need update -->
+		<argument value="100" />  <!-- need update -->
+		
+		<argument value="purchase" />  <!-- Service Method Name -->
+		<argument value="1000" /> <!-- need update -->
+		<argument value="200" />  <!-- need update -->
+	</process>	
+	
+	<process function="br.usp.ime.simulation.datatypes.process.Service" host="registry">
+		<argument value="registry" />  <!-- Service Name -->
+		<argument value="getList" />  <!-- Service Method Name -->
+		<argument value="300" />  <!-- need update -->
+		<argument value="100" />  <!-- need update -->
+	</process>
+	
+	<process function="br.usp.ime.simulation.orchestration.Orchestrator" host="broker">
+		<argument value="1" />  <!-- Amount of orchestration requests -->
+		<argument value="500" />   <!-- Requests per second -->
+		<argument value="10" />    <!-- Size of each returned value -->
+		<argument value="1" />    <!-- Amount of orchestrated service providers -->
+	</process>
+</platform>
