@@ -17,19 +17,22 @@ public class Simulation {
     */
    
     public static void main(String[] args) throws NativeException {
-    	
+    String platform = "smallplatform.xml";
+    String deploymentFile = "smallOrchestrationDeployment.xml";
+    
 	/* initialize the MSG simulation. Must be done before anything else (even logging). */
 	Msg.init(args);
 
-       if(args.length < 2) {    		
+    if(args.length != 2) {    		
 	  Msg.info("Usage   : Simulation platform_file deployment_file");
 	  Msg.info("example : Simulation comm_time_platform.xml comm_time_deployment.xml");
-	  System.exit(1);
-    	}
-    	
+    } else if(args.length == 2){
+    		platform = args[0];
+    		deploymentFile = args[1];
+    		}
 	/* construct the platform and deploy the application */
-	Msg.createEnvironment(args[0]);
-	Msg.deployApplication(args[1]);
+	Msg.createEnvironment(platform);
+	Msg.deployApplication(deploymentFile);
 		
 	/*  execute the simulation. */
         Msg.run();
