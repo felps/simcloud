@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 
 import org.simgrid.msg.Msg;
 import org.simgrid.msg.MsgException;
@@ -66,27 +68,29 @@ public class Orchestration {
 	public void finalizeOrchestration() throws MsgException {
 		List<String> removedMailboxes = new ArrayList<String>();
 		Msg.info("Telling everyone the orchestration is done...");
-		for (String mailbox : managerServiceList.getServiceMethodsMailboxEndpoints().values()) {
-			if (!removedMailboxes.contains(mailbox)) {
-				FinalizeTask task = new FinalizeTask();
-				task.send(mailbox);
-				removedMailboxes.add(mailbox);
+		Map<String, Set<String>> serviceMethodsMailboxEndpoints = managerServiceList.getServiceMethodsMailboxEndpoints();
+		
+		for(Set<String> listEndpoint : serviceMethodsMailboxEndpoints.values())
+			for (String mailbox : listEndpoint) {
+				if (!removedMailboxes.contains(mailbox)) {
+					FinalizeTask task = new FinalizeTask();
+					task.send(mailbox);
+					removedMailboxes.add(mailbox);
+				}
 			}
-		}
 		Msg.info("Orchestration is done. Bye!");
 	}
 	
-	public Map<String, String> getServiceMethodsMailboxEndpoints() {
+	public Map<String, Set<String>> getServiceMethodsMailboxEndpoints() {
 		return managerServiceList.getServiceMethodsMailboxEndpoints();
 	}
 	
 	public String getWsMailbox(WsRequest request) {
 		String chosenMailbox = " ABSOLUTELY NO ONE (This is an ERROR!)";
-		Map<String, String> serviceMethodsMailboxEndpoints = getServiceMethodsMailboxEndpoints();
+		Map<String, Set<String>>  serviceMethodsMailboxEndpoints = getServiceMethodsMailboxEndpoints();
 		
 		if (serviceMethodsMailboxEndpoints.get(request.serviceMethod) != null) {
-			chosenMailbox = serviceMethodsMailboxEndpoints.get(
-					request.serviceMethod);
+			chosenMailbox = serviceMethodsMailboxEndpoints.get(request.serviceMethod).iterator().next();
 		} else
 			Msg.info(request.serviceMethod);
 		return chosenMailbox;

@@ -3,6 +3,7 @@ package br.usp.ime.simulation.orchestration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import org.simgrid.msg.Msg;
 import org.simgrid.msg.MsgException;
@@ -40,7 +41,8 @@ public class Orchestrator extends ServiceInvoker {
 			Orchestration orquestration = new Orchestration(i);
 			orquestration.createServiceList(deploymentInfo);
 			orquestration.parseBpelFile(bpelFile);
-			mailboxes.addAll(orquestration.getServiceMethodsMailboxEndpoints().values());
+			for(Set<String> listEndpoint : orquestration.getServiceMethodsMailboxEndpoints().values())
+			mailboxes.addAll(listEndpoint);
 			orchestrationInstances.put(i, orquestration);
 		}
 
