@@ -1,3 +1,4 @@
+package br.usp.ime.simulation.datatypes.process;
 //package br.usp.ime.simulation.datatypes;
 //
 //import org.simgrid.msg.Host;

@@ -3,8 +3,8 @@ package br.usp.ime.simulation.orchestration;
 import org.simgrid.msg.*;
 import org.simgrid.msg.Process;
 
-import br.usp.ime.simulation.datatypes.ResponseTask;
-import br.usp.ime.simulation.datatypes.WsRequest;
+import br.usp.ime.simulation.datatypes.task.ResponseTask;
+import br.usp.ime.simulation.datatypes.task.WsRequest;
 
 public abstract class ServiceInvoker extends Process{
 

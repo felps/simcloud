@@ -1,4 +1,4 @@
-package br.usp.ime.simulation.datatypes;
+package br.usp.ime.simulation.datatypes.task;
 
 import org.simgrid.msg.Task;
 

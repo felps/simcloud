@@ -12,9 +12,8 @@ import org.simgrid.msg.Task;
 import org.simgrid.msg.TimeoutException;
 import org.simgrid.msg.TransferFailureException;
 
-import br.usp.ime.simulation.datatypes.Orchestration;
-import br.usp.ime.simulation.datatypes.ResponseTask;
-import br.usp.ime.simulation.datatypes.WsRequest;
+import br.usp.ime.simulation.datatypes.task.ResponseTask;
+import br.usp.ime.simulation.datatypes.task.WsRequest;
 
 import commTime.FinalizeTask;
 
@@ -45,7 +44,7 @@ public class Orchestrator extends ServiceInvoker {
 			Orchestration instance = new Orchestration(i);
 			instance.createServiceList(deploymentInfo);
 			instance.parseBpelFile(bpelFile);
-			mailboxes.addAll(instance.getServiceMethodsMailboxes().values());
+			mailboxes.addAll(instance.getServiceMethodsMailboxEndpoints().values());
 			orchestrationInstances.put(i, instance);
 		}
 
@@ -93,8 +92,8 @@ public class Orchestrator extends ServiceInvoker {
 	private String getWsMailbox(WsRequest request, Orchestration orch) {
 		String chosenMailbox = " ABSOLUTELY NO ONE (This is an ERROR!)";
 
-		if (orch.getServiceMethodsMailboxes().get(request.serviceMethod) != null) {
-			chosenMailbox = orch.getServiceMethodsMailboxes().get(
+		if (orch.getServiceMethodsMailboxEndpoints().get(request.serviceMethod) != null) {
+			chosenMailbox = orch.getServiceMethodsMailboxEndpoints().get(
 					request.serviceMethod);
 		} else
 			Msg.info(request.serviceMethod);

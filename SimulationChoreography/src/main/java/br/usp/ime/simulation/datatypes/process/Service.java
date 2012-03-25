@@ -1,4 +1,4 @@
-package br.usp.ime.simulation.datatypes;
+package br.usp.ime.simulation.datatypes.process;
 
 import java.util.HashMap;
 
@@ -7,6 +7,10 @@ import org.simgrid.msg.Msg;
 import org.simgrid.msg.MsgException;
 import org.simgrid.msg.Process;
 import org.simgrid.msg.Task;
+
+import br.usp.ime.simulation.datatypes.task.ResponseTask;
+import br.usp.ime.simulation.datatypes.task.WsMethod;
+import br.usp.ime.simulation.datatypes.task.WsRequest;
 
 import commTime.FinalizeTask;
 
