@@ -53,7 +53,7 @@ public class Service extends Process {
 				break;
 		}
 
-		Msg.info("Received Finalize. Goodbye!");
+		Msg.info("Received Finalize. So this is WS_" + wsName + "_at_" + host.getName()+" saying Goodbye!");
 	}
 
 	public void executeMethod(WsRequest request) throws MsgException {
@@ -68,8 +68,8 @@ public class Service extends Process {
 		response.serviceName = wsName;
 		response.instanceId = request.instanceId;
 		response.requestServed = request;
-
-		Msg.info("Sending response");
+		response.serviceMethod = request.serviceMethod;
+		Msg.info("Sending response from "+request.destination);
 		response.send(responseMailbox);
 	}
 
@@ -83,5 +83,6 @@ public class Service extends Process {
 				0, Double.parseDouble(outputFileSize));
 
 		methods.put(name, method);
+		Msg.info(" Created method " + name + " at " + wsName);
 	}
 }

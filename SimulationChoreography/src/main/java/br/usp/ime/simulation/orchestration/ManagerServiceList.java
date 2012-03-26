@@ -44,17 +44,17 @@ public class ManagerServiceList {
 		//example to small orchestration
 		//addNewServiceMethod("supermarket", "getPrice", "Bellemarre");
 		//addNewServiceMethod("supermarket", "sellProduct", "Bellemarre");
-		addNewServiceMethod("supermarket", "getPrice", "supermarket1");
-		addNewServiceMethod("supermarket", "purchase", "supermarket1");
-		addNewServiceMethod("supermarket", "getPrice", "supermarket2");
-		addNewServiceMethod("supermarket", "purchase", "supermarket2");
-		addNewServiceMethod("supermarket", "getPrice", "supermarket3");
-		addNewServiceMethod("supermarket", "purchase", "supermarket3");
-		addNewServiceMethod("shipper", "getDeliveryStatus", "shipper");
-		addNewServiceMethod("shipper", "setDelivery", "shipper");
-		addNewServiceMethod("registry", "getList", "registry");
-		addNewServiceMethod("shipper", "setDelivery", "shipper");
-		addNewServiceMethod("registry", "getList", "registry");
+		addNewServiceMethod("supermarket", "getPrice", "Bellemarre");
+		addNewServiceMethod("supermarket", "purchase", "Bellemarre");
+//		addNewServiceMethod("supermarket", "getPrice", "supermarket2");
+//		addNewServiceMethod("supermarket", "purchase", "supermarket2");
+//		addNewServiceMethod("supermarket", "getPrice", "supermarket3");
+//		addNewServiceMethod("supermarket", "purchase", "supermarket3");
+		addNewServiceMethod("shipper", "getDeliveryStatus", "Bellemarre");
+		addNewServiceMethod("shipper", "setDelivery", "Bellemarre");
+		addNewServiceMethod("registry", "getList", "Bellemarre");
+//		addNewServiceMethod("shipper", "setDelivery", "shipper");
+		addNewServiceMethod("registry", "getList", "Bellemarre");
 		System.out.println(getServiceMethodsMailboxEndpoints());
 	}
 

@@ -5,10 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import org.omg.CORBA.RepositoryIdHelper;
 import org.simgrid.msg.Msg;
 import org.simgrid.msg.MsgException;
+import org.simgrid.msg.Task;
 
-
+import br.usp.ime.simulation.datatypes.task.ResponseTask;
 import br.usp.ime.simulation.datatypes.task.WsRequest;
 import br.usp.ime.simulation.shared.ServiceInvoker;
 
@@ -19,9 +21,9 @@ public class Orchestrator extends ServiceInvoker {
 	private String deploymentInfo = "";
 	private String bpelFile = "";
 	private HashMap<Integer, Orchestration> orchestrationInstances = new HashMap<Integer, Orchestration>();
-	
+
 	private ArrayList<String> mailboxes = new ArrayList<String>();
-	
+
 	private String myMailbox = "Orchestrator";
 	private ArrayList<WsRequest> tasksToBeSubmitted = new ArrayList<WsRequest>();
 
@@ -37,34 +39,33 @@ public class Orchestrator extends ServiceInvoker {
 	}
 
 	private void orchestrate(final int ammountOfInstances) throws MsgException {
-		
+
 		for (int i = 0; i < ammountOfInstances; i++) {
 			Orchestration orquestration = new Orchestration(i);
 			orquestration.createServiceList(deploymentInfo);
 			orquestration.parseBpelFile(bpelFile);
-			for(Set<String> listEndpoint : orquestration.getServiceMethodsMailboxEndpoints().values())
-			mailboxes.addAll(listEndpoint);
+			for (Set<String> listEndpoint : orquestration
+					.getServiceMethodsMailboxEndpoints().values())
+				mailboxes.addAll(listEndpoint);
 			orchestrationInstances.put(i, orquestration);
 		}
 
-		Msg.info("Teste1");
 		sendInitialTasks();
-		Msg.info("Teste2");
 
+		Msg.info(" BLA " );
 		while (!orchestrationInstances.isEmpty()) {
-			List<Integer> completedInstances = new ArrayList<Integer>();
-			for (Orchestration orch : orchestrationInstances.values()) {
-				if (orch.getReadyTasks().isEmpty()) {
-					Msg.info("No more tasks for orchestration " + orch.getId());
-					completedInstances.add(orch.getId());
-					Msg.info("" + orchestrationInstances.size());
-				} else {
-					submitReadyTasks(orch);
-				}
-			}
-			
-			for (int instanceId : completedInstances){
-				orchestrationInstances.remove(instanceId);
+			ResponseTask response = (ResponseTask) getResponse(myMailbox);
+
+			Orchestration orch = orchestrationInstances
+					.get(response.instanceId);
+			orch.notifyTaskConclusion(response.requestServed);
+
+			if (orch.getReadyTasks().isEmpty()) {
+				Msg.info("No more tasks for orchestration " + orch.getId());
+				Msg.info("" + orchestrationInstances.size());
+				orchestrationInstances.remove(orch.getId());
+			} else {
+				submitReadyTasks(orch);
 			}
 		}
 
@@ -85,11 +86,8 @@ public class Orchestrator extends ServiceInvoker {
 		for (WsRequest request : readyTasks) {
 			String chosenMailbox = orch.getWsMailbox(request);
 			invokeWsMethod(request, myMailbox, chosenMailbox);
-			orch.notifyTaskConclusion(request);
 		}
 	}
-
-
 
 	private void finalizeOrchestration() throws MsgException {
 		ArrayList<String> removedMailboxes = new ArrayList<String>();
@@ -97,6 +95,7 @@ public class Orchestrator extends ServiceInvoker {
 		for (String mailbox : mailboxes) {
 			if (!removedMailboxes.contains(mailbox)) {
 				FinalizeTask task = new FinalizeTask();
+				Msg.info(" Sending termination signal to "+mailbox);
 				task.send(mailbox);
 				removedMailboxes.add(mailbox);
 			}
@@ -104,6 +103,14 @@ public class Orchestrator extends ServiceInvoker {
 
 		Msg.info("Orchestration is done. Bye!");
 
+	}
+
+	@Override
+	public void notifyCompletion(WsRequest request, ResponseTask response)
+			throws MsgException {
+		Orchestration orch = orchestrationInstances.get(response.instanceId);
+		orch.notifyTaskConclusion(request);
+		submitReadyTasks(orch);
 	}
 
 }

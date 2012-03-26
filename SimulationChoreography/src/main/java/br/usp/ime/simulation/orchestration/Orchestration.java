@@ -43,13 +43,13 @@ public class Orchestration {
 		ws1.instanceId = this.id;
 
 		addRequest(ws1);
-		/*
-		WsRequest ws2 = new WsRequest("supermarket", "sellProduct", 50000, null);
-		ws2.instanceId = this.id;
 		
+		WsRequest ws2 = new WsRequest("supermarket", "purchase", 50000, null);
+		ws2.instanceId = this.id;
+
 		addRequest(ws2);
 		addDependency(ws2, ws1);
-		*/
+		
 		Msg.info("Requests created");
 	}
 
@@ -92,7 +92,8 @@ public class Orchestration {
 		if (serviceMethodsMailboxEndpoints.get(request.serviceMethod) != null) {
 			chosenMailbox = serviceMethodsMailboxEndpoints.get(request.serviceMethod).iterator().next();
 		} else
-			Msg.info(request.serviceMethod);
+			Msg.info(" Could not find a provider for method " +request.serviceMethod);
+		request.destination= chosenMailbox;
 		return chosenMailbox;
 	}
 
