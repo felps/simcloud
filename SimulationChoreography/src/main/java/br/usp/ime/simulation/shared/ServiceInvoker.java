@@ -1,4 +1,4 @@
-package br.usp.ime.simulation.orchestration;
+package br.usp.ime.simulation.shared;
 
 import org.simgrid.msg.*;
 import org.simgrid.msg.Process;

@@ -10,6 +10,7 @@ import org.simgrid.msg.MsgException;
 
 
 import br.usp.ime.simulation.datatypes.task.WsRequest;
+import br.usp.ime.simulation.shared.ServiceInvoker;
 
 import commTime.FinalizeTask;
 
