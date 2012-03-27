@@ -1,0 +1,9 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:fut="http://futuremarket.ime.usp.br/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <fut:getList>
+         <!--Optional:-->
+         <arg0>Supermarket</arg0>
+      </fut:getList>
+   </soapenv:Body>
+</soapenv:Envelope>

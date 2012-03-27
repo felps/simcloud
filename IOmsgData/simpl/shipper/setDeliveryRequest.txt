@@ -1,0 +1,19 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:fut="http://futuremarket.ime.usp.br/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <fut:setDelivery>
+         <arg0>
+            <customerInfo>
+                  <endpoint/>
+                  <id/>
+                  <name/>
+                  <zipcode/>
+               </customerInfo>
+            <id>2</id>
+               <products>product1</products>
+               <sellerEndpoint>http://149.121.1.103:8080/supermarket1/supermarket2?wsdl</sellerEndpoint>
+               <value>2.0</value>
+         </arg0>
+      </fut:setDelivery>
+   </soapenv:Body>
+</soapenv:Envelope>

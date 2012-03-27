@@ -1,0 +1,16 @@
+./IOmsg/simpl/customer/getLowestPriceForListRequest.txt	361
+./IOmsg/simpl/customer/getLowestPriceForListResponse.txt	323
+./IOmsg/simpl/customer/getShipmentDataRequest.txt	641
+./IOmsg/simpl/customer/getShipmentDataResponse.txt	795
+./IOmsg/simpl/customer/makePurchaseRequest.txt	420
+./IOmsg/simpl/customer/makePurchaseResponse.txt	1375
+./IOmsg/simpl/registry/getListRequest.txt	299
+./IOmsg/simpl/registry/getListResponse.txt	453
+./IOmsg/simpl/shipper/getDeliveryStatusRequest.txt	668
+./IOmsg/simpl/shipper/getDeliveryStatusResponse.txt	799
+./IOmsg/simpl/shipper/setDeliveryRequest.txt	654
+./IOmsg/simpl/shipper/setDeliveryResponse.txt	241
+./IOmsg/simpl/supermarket/getPricesRequest.txt	336
+./IOmsg/simpl/supermarket/getPricesResponse.txt	532
+./IOmsg/simpl/supermarket/purchaseRequest.txt	419
+./IOmsg/simpl/supermarket/purchaseResponse.txt	593

@@ -1,0 +1,7 @@
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+   <S:Body>
+      <ns2:setDeliveryResponse xmlns:ns2="http://futuremarket.ime.usp.br/">
+         <return>OK</return>
+      </ns2:setDeliveryResponse>
+   </S:Body>
+</S:Envelope>

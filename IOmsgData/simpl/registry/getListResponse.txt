@@ -1,0 +1,9 @@
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+   <S:Body>
+      <ns2:getListResponse xmlns:ns2="http://futuremarket.ime.usp.br/">
+         <return>http://149.121.1.103:8080/supermarket2/supermarket2?wsdl</return>
+         <return>http://149.121.1.103:8080/supermarket1/supermarket1?wsdl</return>
+         <return>http://149.121.1.103:8080/supermarket3/supermarket3?wsdl</return>
+      </ns2:getListResponse>
+   </S:Body>
+</S:Envelope>

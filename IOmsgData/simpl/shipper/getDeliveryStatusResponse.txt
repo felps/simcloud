@@ -1,0 +1,23 @@
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+   <S:Body>
+      <ns2:getDeliveryStatusResponse xmlns:ns2="http://futuremarket.ime.usp.br/">
+         <return>
+            <date>Tue Mar 27 01:08:27 BRT 2012</date>
+            <id>6</id>
+            <purchase>
+               <customerInfo>
+                  <endpoint/>
+                  <id/>
+                  <name/>
+                  <zipcode/>
+               </customerInfo>
+               <id>2</id>
+               <products>product3</products>
+               <sellerEndpoint>http://149.121.1.103:8080/supermarket3/supermarket3?wsdl</sellerEndpoint>
+               <value>3.0</value>
+            </purchase>
+            <status>done</status>
+         </return>
+      </ns2:getDeliveryStatusResponse>
+   </S:Body>
+</S:Envelope>

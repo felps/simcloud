@@ -1,0 +1,14 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:fut="http://futuremarket.ime.usp.br/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <fut:makePurchase>
+         <arg0>0</arg0>
+         <arg1>
+            <endpoint></endpoint>
+            <id></id>
+            <name></name>
+            <zipcode></zipcode>
+         </arg1>
+      </fut:makePurchase>
+   </soapenv:Body>
+</soapenv:Envelope>

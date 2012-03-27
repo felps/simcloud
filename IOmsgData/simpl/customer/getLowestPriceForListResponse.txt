@@ -1,0 +1,10 @@
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+   <S:Body>
+      <ns2:getLowestPriceForListResponse xmlns:ns2="http://futuremarket.ime.usp.br/">
+         <return>
+            <id>0</id>
+            <price>6.0</price>
+         </return>
+      </ns2:getLowestPriceForListResponse>
+   </S:Body>
+</S:Envelope>

@@ -1,0 +1,10 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:fut="http://futuremarket.ime.usp.br/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <fut:getLowestPriceForList>
+         <arg0>product1</arg0>
+         <arg0>product2</arg0>
+         <arg0>product3</arg0>
+      </fut:getLowestPriceForList>
+   </soapenv:Body>
+</soapenv:Envelope>

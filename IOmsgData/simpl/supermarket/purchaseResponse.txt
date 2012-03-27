@@ -1,0 +1,18 @@
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+   <S:Body>
+      <ns2:purchaseResponse xmlns:ns2="http://futuremarket.ime.usp.br/">
+         <return>
+            <customerInfo>
+               <endpoint/>
+               <id/>
+               <name/>
+               <zipcode/>
+            </customerInfo>
+            <id>4</id>
+            <products>product1</products>
+            <sellerEndpoint>http://149.121.1.103:8080/supermarket1/supermarket1?wsdl</sellerEndpoint>
+            <value>1.0</value>
+         </return>
+      </ns2:purchaseResponse>
+   </S:Body>
+</S:Envelope>
