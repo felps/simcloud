@@ -15,51 +15,51 @@ purchaseRequest 419
 	<process function="br.usp.ime.simulation.datatypes.process.Service" host="shipper">
 		<argument value="shipper" />  <!-- Service Name -->
 		<argument value="getDeliveryStatus" />  <!-- Service Method Name -->
-		<argument value="1066.93030186" /> 
+		<argument value="1.06693030186" /> 
 		<argument value="799" /> 
 		 
 	<argument value="setDelivery" />  <!-- Service Method Name -->
-		<argument value="1159.91964721" /> <!-- need update -->
+		<argument value="1.15991964721" /> <!-- need update -->
 		<argument value="241" />
 	</process>
 	
 	<process function="br.usp.ime.simulation.datatypes.process.Service" host="supermarket1">
 		<argument value="supermarket" />  <!-- Service Name -->
 		<argument value="getPrice" />  <!-- Service Method Name -->
-		<argument value="1465.45606763" /> 
+		<argument value="1.46545606763" /> 
 		<argument value="532" />
 
 		<argument value="purchase" />  <!-- Service Method Name -->
-		<argument value="2416.38282539" />
+		<argument value="2.41638282539" />
 		<argument value="593" />
 	</process>
 	
 	<process function="br.usp.ime.simulation.datatypes.process.Service" host="supermarket2">
 		<argument value="supermarket" />  <!-- Service Name -->
 		<argument value="getPrice" />  <!-- Service Method Name -->
-		<argument value="1465.45606763" />  <!-- need update -->
+		<argument value="1.46545606763" />  
 		<argument value="532" />
 
 		<argument value="purchase" />  <!-- Service Method Name -->
-		<argument value="2416.38282539" /> <!-- need update -->
+		<argument value="2.41638282539" /> 
 		<argument value="593" />
 	</process>
 	
 	<process function="br.usp.ime.simulation.datatypes.process.Service" host="supermarket3">
 		<argument value="supermarket" />  <!-- Service Name -->
 		<argument value="getPrice" />  <!-- Service Method Name -->
-		<argument value="1465.45606763" />  <!-- need update -->
+		<argument value="1.46545606763" />  
 		<argument value="532" />
 
 		<argument value="purchase" />  <!-- Service Method Name -->
-		<argument value="2416.38282539" /> <!-- need update -->
+		<argument value="2.41638282539" />
 		<argument value="593" /> 
 	</process>	
 	
 	<process function="br.usp.ime.simulation.datatypes.process.Service" host="registry">
 		<argument value="registry" />  <!-- Service Name -->
 		<argument value="getList" />  <!-- Service Method Name -->
-		<argument value="300" />  <!-- need update -->
+		<argument value="1.0" />  <!-- need update -->
 		<argument value="453" /> 
 	</process>
 	
