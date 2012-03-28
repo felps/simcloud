@@ -1,49 +1,59 @@
 <?xml version='1.0'?>
 <!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid.dtd">
 <platform version="3">
-	
+<!-- methods and sizeof input 
+
+getLowestPriceForListRequest 361
+ getShipmentDataRequest	641
+makePurchaseRequest	420
+getListRequest 299
+getDeliveryStatusRequest 668
+setDeliveryRequest 654
+getPricesRequest 336
+purchaseRequest 419
+-->
 	<process function="br.usp.ime.simulation.datatypes.process.Service" host="shipper">
 		<argument value="shipper" />  <!-- Service Name -->
 		<argument value="getDeliveryStatus" />  <!-- Service Method Name -->
-		<argument value="1000" /> <!-- need update -->
+		<argument value="1066.93030186" /> 
 		<argument value="799" /> 
 		 
 	<argument value="setDelivery" />  <!-- Service Method Name -->
-		<argument value="1000" /> <!-- need update -->
-		<argument value="241" />  
+		<argument value="1159.91964721" /> <!-- need update -->
+		<argument value="241" />
 	</process>
 	
 	<process function="br.usp.ime.simulation.datatypes.process.Service" host="supermarket1">
 		<argument value="supermarket" />  <!-- Service Name -->
 		<argument value="getPrice" />  <!-- Service Method Name -->
-		<argument value="300" />  <!-- need update -->
+		<argument value="1465.45606763" /> 
 		<argument value="532" />
 
 		<argument value="purchase" />  <!-- Service Method Name -->
-		<argument value="1000" /> <!-- need update -->
+		<argument value="2416.38282539" />
 		<argument value="593" />
 	</process>
 	
 	<process function="br.usp.ime.simulation.datatypes.process.Service" host="supermarket2">
 		<argument value="supermarket" />  <!-- Service Name -->
 		<argument value="getPrice" />  <!-- Service Method Name -->
-		<argument value="300" />  <!-- need update -->
+		<argument value="1465.45606763" />  <!-- need update -->
 		<argument value="532" />
 
 		<argument value="purchase" />  <!-- Service Method Name -->
-		<argument value="1000" /> <!-- need update -->
+		<argument value="2416.38282539" /> <!-- need update -->
 		<argument value="593" />
 	</process>
 	
 	<process function="br.usp.ime.simulation.datatypes.process.Service" host="supermarket3">
 		<argument value="supermarket" />  <!-- Service Name -->
 		<argument value="getPrice" />  <!-- Service Method Name -->
-		<argument value="300" />  <!-- need update -->
-		<argument value="532" />  
-		
+		<argument value="1465.45606763" />  <!-- need update -->
+		<argument value="532" />
+
 		<argument value="purchase" />  <!-- Service Method Name -->
-		<argument value="1000" /> <!-- need update -->
-		<argument value="593" />  
+		<argument value="2416.38282539" /> <!-- need update -->
+		<argument value="593" /> 
 	</process>	
 	
 	<process function="br.usp.ime.simulation.datatypes.process.Service" host="registry">
@@ -51,6 +61,19 @@
 		<argument value="getList" />  <!-- Service Method Name -->
 		<argument value="300" />  <!-- need update -->
 		<argument value="453" /> 
+	</process>
+	
+	<process function="br.usp.ime.simulation.datatypes.process.Service" host="customer">
+		<argument value="customer" />  <!-- Service Name -->
+		<argument value="getLowestPrice" />  <!-- Service Method Name -->
+		<argument value="222858.540541" /> 
+		<argument value="323" /> 
+		<argument value="getShipmentData" />  <!-- Service Method Name -->
+		<argument value="6816.22967658" /> 
+		<argument value="795" />
+		<argument value="makePurchase" />  <!-- Service Method Name -->
+		<argument value="25162.3171171" /> 
+		<argument value="1375" />
 	</process>
 	
 	<process function="br.usp.ime.simulation.orchestration.Orchestrator" host="broker">
