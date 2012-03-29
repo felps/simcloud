@@ -15,3 +15,5 @@
 *.orig
 *.log
 *.war
+/.metadata/
+.metadata/
