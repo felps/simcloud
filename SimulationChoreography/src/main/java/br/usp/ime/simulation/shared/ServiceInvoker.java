@@ -8,12 +8,11 @@ import br.usp.ime.simulation.datatypes.task.WsRequest;
 
 public abstract class ServiceInvoker extends Process {
 
-	protected static void invokeWsMethod(WsRequest request, String sender,
+	protected void invokeWsMethod(WsRequest request, String sender,
 			String destination) throws MsgException {
 
-		TaskSender worker = new TaskSender(request, destination, sender);
-		Thread sending = (new Thread(worker));
-		sending.run();
+		new TaskSender(request, destination, sender, getHost());
+
 		return;
 
 	}

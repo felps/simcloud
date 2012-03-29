@@ -85,6 +85,7 @@ public class Orchestrator extends ServiceInvoker {
 		Msg.info(readyTasks.size() + " tasks are ready!");
 		for (WsRequest request : readyTasks) {
 			String chosenMailbox = orch.getWsMailbox(request);
+			Msg.info(" Sending request for " + request.serviceMethod + " not to " + request.destination + " but to " + chosenMailbox);
 			invokeWsMethod(request, myMailbox, chosenMailbox);
 		}
 	}
