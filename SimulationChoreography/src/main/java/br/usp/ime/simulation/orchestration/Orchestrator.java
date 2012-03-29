@@ -47,12 +47,12 @@ public class Orchestrator extends ServiceInvoker {
 
 		sendInitialTasks();
 
-		Msg.info(" BLA " );
 		while (!orchestrationInstances.isEmpty()) {
 			ResponseTask response = (ResponseTask) getResponse(myMailbox);
 
 			Orchestration orch = orchestrationInstances
 					.get(response.instanceId);
+			Msg.info(response.requestServed.serializeWsRequest());
 			orch.notifyTaskConclusion(response.requestServed);
 
 			if (orch.getReadyTasks().isEmpty()) {

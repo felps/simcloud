@@ -57,7 +57,7 @@ public class Orchestration {
 		return managerRequest.getReadyTasks();
 	}
 
-	public void notifyTaskConclusion(final WsRequest request) {
+	public void notifyTaskConclusion(WsRequest request) {
 		managerRequest.notifyTaskConclusion(request);
 	}
 	

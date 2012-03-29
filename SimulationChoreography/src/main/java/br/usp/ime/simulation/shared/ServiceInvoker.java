@@ -10,9 +10,12 @@ public abstract class ServiceInvoker extends Process {
 
 	protected void invokeWsMethod(WsRequest request, String sender,
 			String destination) throws MsgException {
-		String[] args = new String[1];
+		request.destination = destination;
+		request.senderMailbox = sender;
+		String[] args = new String[2];
 		args[0] = request.serializeWsRequest();
-		new WsRequestSender(args, destination, sender, getHost());
+		args[1] = destination;
+		new WsRequestSender(args, getHost());
 
 		return;
 

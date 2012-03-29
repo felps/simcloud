@@ -13,22 +13,20 @@ import br.usp.ime.simulation.datatypes.task.WsRequest;
 import commTime.FinalizeTask;
 
 public class WsRequestSender extends org.simgrid.msg.Process{
-	private Task request;
-	private String destination;
-	private String sender;
-	private String[] strings = new String[1];
-
-	public WsRequestSender(String[] serializedRequest, String destinationMailbox,
-			String senderMailbox, Host host) {
-		super(host,"TaskSender", serializedRequest);
+	public WsRequestSender(String[] serializedRequest, Host host) {
+		super(host,"WsRequestSender", serializedRequest);
 	}
 
 	@Override
 	public void main(String[] args) throws MsgException {
-		
+		String destination = args[1];
+		Task taskToBeSent = null;
 		Task request = null;
 		try {
+			Msg.info("Deserializing request: "+args[0]);
 			request = TaskSerializer.deserializeTask(args[0]);
+			Msg.info("DONE!");
+			Msg.info(request.getClass().getName());
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -39,8 +37,6 @@ public class WsRequestSender extends org.simgrid.msg.Process{
 					+ request.getComputeDuration() + " and message size of "
 					+ ((WsRequest) request).inputMessageSize + " at "
 					+ destination);
-
-			((WsRequest) request).senderMailbox = sender;
 		} else if (request instanceof FinalizeTask)
 			Msg.info(" Terminating service at " + destination);
 		else

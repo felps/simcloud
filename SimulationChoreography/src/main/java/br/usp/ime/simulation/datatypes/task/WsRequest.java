@@ -40,11 +40,12 @@ public class WsRequest extends Task{
 		inputMessageSize = wsRequest.inputMessageSize;
 		done = wsRequest.done;
 		instanceId = wsRequest.instanceId;
+		destination = wsRequest.destination;
 	
 		String serializedWsRequest;
-		serializedWsRequest = "WsRequest" + "\t;\t" + serviceName + "\t;\t"
-				+ senderMailbox + "\t;\t" + serviceMethod + "\t;\t"
-				+ inputMessageSize + "\t;\t" + done + "\t;\t" + instanceId + "\t;\t"
+		serializedWsRequest = "WsRequest" + ";" + serviceName + ";"
+				+ senderMailbox + ";" + serviceMethod + ";"
+				+ inputMessageSize + ";" + done + ";" + instanceId + ";"
 				+ destination;
 		return serializedWsRequest;
 	}
@@ -52,7 +53,7 @@ public class WsRequest extends Task{
 	public static WsRequest deserializeWsRequest(String serializedWsRequest)
 			throws Exception {
 	
-		String[] args = serializedWsRequest.split("\t;\t");
+		String[] args = serializedWsRequest.split(";");
 		System.out.println(args.length);
 		if (args.length == 8) {
 			WsRequest wsRequest = deserializeWsRequest(args);
