@@ -13,18 +13,20 @@ import br.usp.ime.simulation.datatypes.task.WsRequest;
 import commTime.FinalizeTask;
 
 public class WsRequestSender extends org.simgrid.msg.Process{
-	public WsRequestSender(String[] serializedRequest, Host host) {
-		super(host,"WsRequestSender", serializedRequest);
+	
+	public WsRequest request;
+	
+	public WsRequestSender(String[] args, Host host) {
+		super(host,"WsRequestSender", args);
 	}
 
 	@Override
 	public void main(String[] args) throws MsgException {
 		String destination = args[1];
-		Task taskToBeSent = null;
 		Task request = null;
 		try {
 			Msg.info("Deserializing request: "+args[0]);
-			request = TaskSerializer.deserializeTask(args[0]);
+			request = WsRequest.fromString(args[0]);
 			Msg.info("DONE!");
 			Msg.info(request.getClass().getName());
 		} catch (Exception e1) {

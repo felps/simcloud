@@ -41,11 +41,13 @@ public class Orchestration {
 		Msg.info("Creating requests");
 		WsRequest ws1 = new WsRequest("supermarket", "getPrice", 30000, null);
 		ws1.instanceId = this.id;
+		ws1.senderMailbox = "Orchestrator";
 
 		addRequest(ws1);
 		
 		WsRequest ws2 = new WsRequest("supermarket", "purchase", 50000, null);
 		ws2.instanceId = this.id;
+		ws2.senderMailbox = "Orchestrator";
 
 		addRequest(ws2);
 		addDependency(ws2, ws1);

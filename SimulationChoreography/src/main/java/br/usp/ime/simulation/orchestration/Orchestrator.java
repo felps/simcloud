@@ -52,7 +52,6 @@ public class Orchestrator extends ServiceInvoker {
 
 			Orchestration orch = orchestrationInstances
 					.get(response.instanceId);
-			Msg.info(response.requestServed.serializeWsRequest());
 			orch.notifyTaskConclusion(response.requestServed);
 
 			if (orch.getReadyTasks().isEmpty()) {

@@ -1,7 +1,11 @@
 package br.usp.ime.simulation.shared;
 
-import org.simgrid.msg.*;
+import java.io.IOException;
+
+import org.simgrid.msg.Msg;
+import org.simgrid.msg.MsgException;
 import org.simgrid.msg.Process;
+import org.simgrid.msg.Task;
 
 import br.usp.ime.simulation.datatypes.task.ResponseTask;
 import br.usp.ime.simulation.datatypes.task.WsRequest;
@@ -12,14 +16,26 @@ public abstract class ServiceInvoker extends Process {
 			String destination) throws MsgException {
 		request.destination = destination;
 		request.senderMailbox = sender;
-		String[] args = new String[2];
-		args[0] = request.serializeWsRequest();
-		args[1] = destination;
-		new WsRequestSender(args, getHost());
+
+		String serialization;
+		try {
+
+			serialization = WsRequest.toString(request);
+			String[] args = new String[2];
+			args[0] = serialization;
+			args[1] = destination;
+			new WsRequestSender(args, getHost());
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 
 		return;
 
 	}
+
 
 	public abstract void notifyCompletion(WsRequest request,
 			ResponseTask response) throws MsgException;

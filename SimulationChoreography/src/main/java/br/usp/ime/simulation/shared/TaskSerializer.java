@@ -1,5 +1,8 @@
 package br.usp.ime.simulation.shared;
 
+import java.io.IOException;
+
+import org.junit.runner.Request;
 import org.simgrid.msg.Task;
 
 import commTime.FinalizeTask;
@@ -12,39 +15,30 @@ public class TaskSerializer {
 
 		if (task instanceof WsRequest) {
 
-			WsRequest wsRequest = (WsRequest) task;
-
-			return wsRequest.serializeWsRequest();
+			try {
+				WsRequest wsRequest = (WsRequest) task;
+				return WsRequest.toString(wsRequest);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			}
 
 		} else
 
 		if (task instanceof FinalizeTask) {
 			return ((FinalizeTask) task).serializeFinalizeTask();
 		}
-		
+
 		else
 			return serializeGenericTask(task, messageSize);
+
 	}
 
 	private static String serializeGenericTask(Task task, double messageSize) {
 		String serializedTask = task.getName() + ";"
 				+ task.getComputeDuration() + ";" + messageSize;
 		return serializedTask;
-	}
-
-	public static Task deserializeTask(String serializedTask) throws Exception {
-
-		System.out.println(serializedTask);
-		String[] args = serializedTask.split(";");
-
-		if (args[0].equals("WsRequest"))
-			return WsRequest.deserializeWsRequest(serializedTask);
-
-		else if (args[0].equals("FinalizeTask"))
-			return FinalizeTask.deserializeFinalizeTask(serializedTask);
-
-		return deserializeGenericTask(args);
-
 	}
 
 	private static Task deserializeGenericTask(String[] args) {
