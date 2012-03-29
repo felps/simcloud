@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import org.junit.runner.Request;
 import org.simgrid.msg.Msg;
 import org.simgrid.msg.MsgException;
 
@@ -52,6 +53,8 @@ public class Orchestrator extends ServiceInvoker {
 
 			Orchestration orch = orchestrationInstances
 					.get(response.instanceId);
+			Msg.info("Task "+response.serviceMethod+" completed for instance " + response.instanceId);
+			
 			orch.notifyTaskConclusion(response.requestServed);
 
 			if (orch.getReadyTasks().isEmpty()) {

@@ -20,7 +20,7 @@ public class ManagerRequest {
 		requests = new ArrayList<WsRequest>();
 	}
 
-	public void addRequest(final WsRequest request) {
+	public void addRequest(WsRequest request) {
 		requests.add(request);
 		dependsOn.put(request, new ArrayList<WsRequest>());
 		isDependencyOf.put(request, new ArrayList<WsRequest>());
@@ -63,6 +63,13 @@ public class ManagerRequest {
 				removeThisRequestsDependencyOn(request, dependency);
 			}
 		}
+		else{
+			Msg.info("Could not find inputted request (" + request.toString() + ")");
+			for(WsRequest req : isDependencyOf.keySet()){
+				Msg.info("key: " + req.toString());
+			}
+		}
+			
 	}
 
 	private void removeThisRequestsDependencyOn(WsRequest request,
