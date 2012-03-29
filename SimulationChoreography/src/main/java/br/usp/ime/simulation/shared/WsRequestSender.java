@@ -12,22 +12,27 @@ import br.usp.ime.simulation.datatypes.task.WsRequest;
 
 import commTime.FinalizeTask;
 
-public class TaskSender extends org.simgrid.msg.Process{
+public class WsRequestSender extends org.simgrid.msg.Process{
 	private Task request;
 	private String destination;
 	private String sender;
+	private String[] strings = new String[1];
 
-	public TaskSender(Task request, String destinationMailbox,
+	public WsRequestSender(String[] serializedRequest, String destinationMailbox,
 			String senderMailbox, Host host) {
-		super(host,"TaskSender");
-		this.request = request;
-		this.destination = destinationMailbox;
-		this.sender = senderMailbox;
-		this.start();
+		super(host,"TaskSender", serializedRequest);
 	}
 
 	@Override
 	public void main(String[] args) throws MsgException {
+		
+		Task request = null;
+		try {
+			request = TaskSerializer.deserializeTask(args[0]);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+
 		if (request instanceof WsRequest) {
 			Msg.info("Created Task for " + ((WsRequest) request).serviceMethod
 					+ " with compute duration of "

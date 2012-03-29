@@ -5,10 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-import org.omg.CORBA.RepositoryIdHelper;
 import org.simgrid.msg.Msg;
 import org.simgrid.msg.MsgException;
-import org.simgrid.msg.Task;
 
 import br.usp.ime.simulation.datatypes.task.ResponseTask;
 import br.usp.ime.simulation.datatypes.task.WsRequest;
@@ -20,13 +18,10 @@ public class Orchestrator extends ServiceInvoker {
 
 	private String deploymentInfo = "";
 	private String bpelFile = "";
-	private HashMap<Integer, Orchestration> orchestrationInstances = new HashMap<Integer, Orchestration>();
-
-	private ArrayList<String> mailboxes = new ArrayList<String>();
-
 	private String myMailbox = "Orchestrator";
-	private ArrayList<WsRequest> tasksToBeSubmitted = new ArrayList<WsRequest>();
-
+	private HashMap<Integer, Orchestration> orchestrationInstances = new HashMap<Integer, Orchestration>();
+	private ArrayList<String> mailboxes = new ArrayList<String>();
+	
 	public void main(final String[] args) throws MsgException {
 		if (args.length != 4) {
 			Msg.info("The orchestrator must receive 4 inputs: Request quantity, request per sec rate, orchestration descriptor and ammount of orchestrated services");

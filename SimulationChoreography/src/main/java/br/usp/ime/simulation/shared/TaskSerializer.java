@@ -27,15 +27,15 @@ public class TaskSerializer {
 	}
 
 	private static String serializeGenericTask(Task task, double messageSize) {
-		String serializedTask = task.getName() + "\t"
-				+ task.getComputeDuration() + "\t" + messageSize;
+		String serializedTask = task.getName() + "\t;\t"
+				+ task.getComputeDuration() + "\t;\t" + messageSize;
 		return serializedTask;
 	}
 
 	public static Task deserializeTask(String serializedTask) throws Exception {
 
 		System.out.println(serializedTask);
-		String[] args = serializedTask.split("\t");
+		String[] args = serializedTask.split("\t;\t");
 
 		if (args[0].equals("WsRequest"))
 			return WsRequest.deserializeWsRequest(serializedTask);

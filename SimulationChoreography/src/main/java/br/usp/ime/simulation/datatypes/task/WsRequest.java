@@ -26,13 +26,13 @@ public class WsRequest extends Task{
 
 	public String serializeWsRequest() {
 		WsRequest wsRequest = this;
-		String serviceName = "";
-		String senderMailbox = "";
-		String serviceMethod = "";
+		String serviceName = "null";
+		String senderMailbox = "null";
+		String serviceMethod = "null";
 		double inputMessageSize = 0;
 		boolean done = false;
 		int instanceId = -1;
-		String destination = "";
+		String destination = "null";
 	
 		serviceName = wsRequest.serviceName;
 		senderMailbox = wsRequest.senderMailbox;
@@ -42,9 +42,9 @@ public class WsRequest extends Task{
 		instanceId = wsRequest.instanceId;
 	
 		String serializedWsRequest;
-		serializedWsRequest = "WsRequest" + "|" + serviceName + "|"
-				+ senderMailbox + "|" + serviceMethod + "|"
-				+ inputMessageSize + "|" + done + "|" + instanceId + "|"
+		serializedWsRequest = "WsRequest" + "\t;\t" + serviceName + "\t;\t"
+				+ senderMailbox + "\t;\t" + serviceMethod + "\t;\t"
+				+ inputMessageSize + "\t;\t" + done + "\t;\t" + instanceId + "\t;\t"
 				+ destination;
 		return serializedWsRequest;
 	}
@@ -52,7 +52,7 @@ public class WsRequest extends Task{
 	public static WsRequest deserializeWsRequest(String serializedWsRequest)
 			throws Exception {
 	
-		String[] args = serializedWsRequest.split("|");
+		String[] args = serializedWsRequest.split("\t;\t");
 		System.out.println(args.length);
 		if (args.length == 8) {
 			WsRequest wsRequest = deserializeWsRequest(args);
@@ -64,13 +64,13 @@ public class WsRequest extends Task{
 	}
 	
 	private static WsRequest deserializeWsRequest(String... args) {
-		String serviceName = args[0];
-		String senderMailbox = args[1];
-		String serviceMethod = args[2];
-		double inputMessageSize = Double.parseDouble(args[3]);
-		boolean done = Boolean.parseBoolean(args[4]);
-		int instanceId = Integer.parseInt(args[5]);
-		String destination = args[6];
+		String serviceName = args[1];
+		String senderMailbox = args[2];
+		String serviceMethod = args[3];
+		double inputMessageSize = Double.parseDouble(args[4]);
+		boolean done = Boolean.parseBoolean(args[5]);
+		int instanceId = Integer.parseInt(args[6]);
+		String destination = args[7];
 	
 		WsRequest wsRequest = new WsRequest(serviceName, serviceMethod,
 				inputMessageSize, senderMailbox);

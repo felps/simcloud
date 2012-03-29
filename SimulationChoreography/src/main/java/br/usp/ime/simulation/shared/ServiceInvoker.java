@@ -10,8 +10,9 @@ public abstract class ServiceInvoker extends Process {
 
 	protected void invokeWsMethod(WsRequest request, String sender,
 			String destination) throws MsgException {
-
-		new TaskSender(request, destination, sender, getHost());
+		String[] args = new String[1];
+		args[0] = request.serializeWsRequest();
+		new WsRequestSender(args, destination, sender, getHost());
 
 		return;
 
@@ -23,23 +24,23 @@ public abstract class ServiceInvoker extends Process {
 	public static Task getResponse(String sender) {
 		Task response = null;
 
-			response = tryUntilAMessageIsGot(sender, response);
+		response = tryUntilAMessageIsGot(sender, response);
 
-			Msg.info(" BLE "+response.getClass().getName());
-			
-			if (response instanceof ResponseTask) {
+		Msg.info(" BLE " + response.getClass().getName());
 
-				Msg.info("Task " + ((ResponseTask) response).serviceMethod
-						+ " for orchestration "
-						+ ((ResponseTask) response).instanceId
-						+ " was succesfully executed by "
-						+ ((ResponseTask) response).requestServed.destination);
-			} else {
-				Msg.info("Something went wrong...");
-				System.exit(1);
-			}
-		return response;
+		if (response instanceof ResponseTask) {
+
+			Msg.info("Task " + ((ResponseTask) response).serviceMethod
+					+ " for orchestration "
+					+ ((ResponseTask) response).instanceId
+					+ " was succesfully executed by "
+					+ ((ResponseTask) response).requestServed.destination);
+		} else {
+			Msg.info("Something went wrong...");
+			System.exit(1);
 		}
+		return response;
+	}
 
 	private static Task tryUntilAMessageIsGot(String sender, Task response) {
 		try {
@@ -47,7 +48,7 @@ public abstract class ServiceInvoker extends Process {
 			response = Task.receive(sender, 5);
 
 		} catch (MsgException e) {
-			Msg.info(" Could not get message! " );
+			Msg.info(" Could not get message! ");
 			return tryUntilAMessageIsGot(sender, response);
 		}
 		return response;

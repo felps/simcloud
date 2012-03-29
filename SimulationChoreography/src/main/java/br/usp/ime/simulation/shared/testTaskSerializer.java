@@ -36,7 +36,7 @@ public class testTaskSerializer {
 		wsRequest.instanceId = 9870;
 
 		when(wsRequest.serializeWsRequest()).thenReturn(
-				"WsRequest\tservice\tsender\tmethod\t1345\tfalse\t9870\tdestination");
+				"WsRequest;service;sender;method;1345;false;9870;destination");
 		
 		finalizeTask = mock(FinalizeTask.class);
 		when(finalizeTask.serializeFinalizeTask()).thenReturn("FinalizeTask");
