@@ -6,11 +6,22 @@
  */
 
 package commTime;
+
 import org.simgrid.msg.*;
 
-public class FinalizeTask extends Task {    	
-   public FinalizeTask() {
-      super("",0,0);
-   }
+public class FinalizeTask extends Task {
+	public FinalizeTask() {
+		super("", 0, 0);
+	}
+
+	public  String serializeFinalizeTask() {
+		return "FinalizeTask";
+	}
+
+	public static FinalizeTask deserializeFinalizeTask(String serializeTask) {
+		if (serializeTask.equals("FinalizeTask"))
+			return new FinalizeTask();
+		else
+			return null;
+	}
 }
-    
