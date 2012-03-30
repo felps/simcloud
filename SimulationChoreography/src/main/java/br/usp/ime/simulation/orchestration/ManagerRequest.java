@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.simgrid.msg.Msg;
 
@@ -56,13 +57,22 @@ public class ManagerRequest {
 		return false;
 	}
 
+	private void doneWsRequest(WsRequest request,Set<WsRequest> setRequest){
+		for(WsRequest i: setRequest){
+			if(i.equals(request)){
+				i.done = true;
+				break;
+			}
+		}
+	}
 	public void notifyTaskConclusion(WsRequest request) {
-		request.done = true;
-		if (isDependencyOf.get(request) != null) {
+			if (isDependencyOf.get(request) != null) {
+			doneWsRequest(request,isDependencyOf.keySet());
 			for (WsRequest dependency : isDependencyOf.get(request)) {
 				removeThisRequestsDependencyOn(request, dependency);
 			}
 		}
+		
 		else{
 			Msg.info("Could not find inputted request (" + request.toString() + ")");
 			for(WsRequest req : isDependencyOf.keySet()){

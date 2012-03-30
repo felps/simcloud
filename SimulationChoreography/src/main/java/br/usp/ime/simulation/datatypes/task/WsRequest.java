@@ -25,6 +25,56 @@ public class WsRequest extends Task implements Serializable{
 	public int instanceId = -1;
 	public String destination;
 	
+	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		long temp;
+		temp = Double.doubleToLongBits(inputMessageSize);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result
+				+ ((senderMailbox == null) ? 0 : senderMailbox.hashCode());
+		result = prime * result
+				+ ((serviceMethod == null) ? 0 : serviceMethod.hashCode());
+		result = prime * result
+				+ ((serviceName == null) ? 0 : serviceName.hashCode());
+		return result;
+	}
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		WsRequest other = (WsRequest) obj;
+		if (Double.doubleToLongBits(inputMessageSize) != Double
+				.doubleToLongBits(other.inputMessageSize))
+			return false;
+		if (senderMailbox == null) {
+			if (other.senderMailbox != null)
+				return false;
+		} else if (!senderMailbox.equals(other.senderMailbox))
+			return false;
+		if (serviceMethod == null) {
+			if (other.serviceMethod != null)
+				return false;
+		} else if (!serviceMethod.equals(other.serviceMethod))
+			return false;
+		if (serviceName == null) {
+			if (other.serviceName != null)
+				return false;
+		} else if (!serviceName.equals(other.serviceName))
+			return false;
+		return true;
+	}
+
 	public WsRequest(String wsName, String wsMethod, double messageSize, String senderMailbox) {
 		super(wsMethod, 1, messageSize);
 
@@ -32,9 +82,9 @@ public class WsRequest extends Task implements Serializable{
 		serviceMethod = wsMethod;
 		serviceName = wsName;
 		inputMessageSize = messageSize;
-		
 	}
 
+	
 	
 	/** Read the object from Base64 string. */
     public static WsRequest fromString( String s ) throws IOException ,
