@@ -14,16 +14,18 @@ public class TaskReceiver implements Runnable {
 	private String myMailbox;
 
 	public TaskReceiver(String mailbox) {
+		super();
 		myMailbox = mailbox;
 	}
 	public Task getIncomingTask() {
+		Task returnedTask = null;
 		try {
-			Task returnedTask = incomingTasks.get(0);
+			returnedTask = incomingTasks.get(0);
 			incomingTasks.remove(returnedTask);
-			return returnedTask;
 		} catch (Exception e) {
-			return null;
+			e.printStackTrace();
 		}
+		return returnedTask;
 	}
 
 	@Override

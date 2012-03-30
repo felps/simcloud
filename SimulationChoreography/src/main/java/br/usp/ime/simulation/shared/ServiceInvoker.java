@@ -68,7 +68,7 @@ public abstract class ServiceInvoker extends Process {
 
 		} catch (MsgException e) {
 			Msg.info(" Could not get message! ");
-			return tryUntilAMessageIsGot(sender, response);
+			response =  tryUntilAMessageIsGot(sender, response);
 		}
 		return response;
 	}
