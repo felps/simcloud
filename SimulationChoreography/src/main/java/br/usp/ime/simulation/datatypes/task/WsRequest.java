@@ -80,11 +80,17 @@ public class WsRequest extends Task implements Serializable{
 	public WsRequest(String wsName, String wsMethod, double messageSize, String senderMailbox) {
 		super(wsMethod, 1, messageSize);
 
-		this.id = WsRequest.nextId++;
+		this.id = getId();
 		this.senderMailbox = senderMailbox;
 		serviceMethod = wsMethod;
 		serviceName = wsName;
 		inputMessageSize = messageSize;
+	}
+
+
+
+	private synchronized int getId() {
+		return WsRequest.nextId++;
 	}
 
 	
