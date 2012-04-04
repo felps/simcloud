@@ -17,7 +17,7 @@ purchaseRequest 419
 		<argument value="getDeliveryStatus" />  <!-- Service Method Name -->
 		<argument value="1.06693030186" /> 
 		<argument value="799" /> 
-		 
+
 	<argument value="setDelivery" />  <!-- Service Method Name -->
 		<argument value="1.15991964721" /> <!-- need update -->
 		<argument value="241" />
@@ -63,18 +63,18 @@ purchaseRequest 419
 		<argument value="453" /> 
 	</process>
 	
-	<process function="br.usp.ime.simulation.datatypes.process.Service" host="customer">
-		<argument value="customer" />  <!-- Service Name -->
-		<argument value="getLowestPrice" />  <!-- Service Method Name -->
+	<!-- <process function="br.usp.ime.simulation.datatypes.process.Service" host="customer">
+		<argument value="customer" />  Service Name
+		<argument value="getLowestPrice" />  Service Method Name
 		<argument value="222858.540541" /> 
 		<argument value="323" /> 
-		<argument value="getShipmentData" />  <!-- Service Method Name -->
+		<argument value="getShipmentData" />  Service Method Name
 		<argument value="6816.22967658" /> 
 		<argument value="795" />
-		<argument value="makePurchase" />  <!-- Service Method Name -->
+		<argument value="makePurchase" />  Service Method Name
 		<argument value="25162.3171171" /> 
 		<argument value="1375" />
-	</process>
+	</process> -->
 	
 	<process function="br.usp.ime.simulation.orchestration.Orchestrator" host="broker">
 		<argument value="1" />  <!-- Amount of orchestration requests -->
