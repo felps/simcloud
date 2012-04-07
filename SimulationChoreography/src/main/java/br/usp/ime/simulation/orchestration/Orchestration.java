@@ -1,17 +1,12 @@
 package br.usp.ime.simulation.orchestration;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 
 import org.simgrid.msg.Msg;
-import org.simgrid.msg.MsgException;
 
 import br.usp.ime.simulation.datatypes.task.WsRequest;
-import commTime.FinalizeTask;
 
 public class Orchestration {
 	private ManagerRequest managerRequest;
@@ -30,6 +25,8 @@ public class Orchestration {
 	}
 
 	public void addRequest(final WsRequest request){
+		request.instanceId = this.id;
+		request.senderMailbox = "Orchestrator";
 		managerRequest.addRequest(request);
 	}
 	
@@ -37,8 +34,15 @@ public class Orchestration {
 		managerRequest.addDependency(request,dependency);
 	}
 	
+	
+	
 	public void parseBpelFile(final String fileName) {
 		Msg.info("Creating requests");
+		parseBpelFileSmallOrchestration();
+		Msg.info("Requests created");
+	}
+
+	public void parseBpelFileSmallOrchestration() {
 		WsRequest ws1 = new WsRequest("supermarket", "getPrice", 30000, null);
 		ws1.instanceId = this.id;
 		ws1.senderMailbox = "Orchestrator";
@@ -51,10 +55,48 @@ public class Orchestration {
 
 		addRequest(ws2);
 		addDependency(ws2, ws1);
-		
-		Msg.info("Requests created");
 	}
+	
+	private void getDeliveryStatusRequest() {
+		WsRequest ws1 = new WsRequest("shipper", "getDeliveryStatus", 668, null);
+		
+		addRequest(ws1);
+	}
+	
+	private void getLowestPriceRequest() {
+		WsRequest ws1 = new WsRequest("supermarket", "getPrice", 336, null);
+		addRequest(ws1);
 
+		WsRequest ws2 = new WsRequest("supermarket", "getPrice", 336, null);
+		addRequest(ws2);
+		addDependency(ws2,ws1);
+
+		WsRequest ws3 = new WsRequest("supermarket", "getPrice", 336, null);
+		addRequest(ws3);
+		addDependency(ws3,ws2);
+		//TODO task to take lowest prices
+	}
+	
+	private void makePurchaseRequest(){
+		WsRequest ws1 = new WsRequest("supermarket","purchase",420,null);
+		WsRequest ws2 = new WsRequest("shipper","setDelivery",654,null);
+		WsRequest ws3 = new WsRequest("supermarket","purchase",420,null);
+		WsRequest ws4 = new WsRequest("shipper","setDelivery",654,null);
+		WsRequest ws5 = new WsRequest("supermarket","purchase",420,null);
+		WsRequest ws6 = new WsRequest("shipper","setDelivery",654,null);
+		addRequest(ws1);
+		addRequest(ws2);
+		addRequest(ws3);
+		addRequest(ws4);
+		addRequest(ws5);
+		addRequest(ws6);
+		addDependency(ws2,ws1);
+		addDependency(ws3,ws2);
+		addDependency(ws4,ws3);
+		addDependency(ws5,ws4);
+		addDependency(ws6,ws5);
+	}
+	
 	public List<WsRequest> getReadyTasks() {
 		return managerRequest.getReadyTasks();
 	}
@@ -65,22 +107,6 @@ public class Orchestration {
 	
 	public void createServiceList(final String deploymentInfo) {
 		managerServiceList.createServiceList(deploymentInfo);
-	}
-	
-	public void finalizeOrchestration() throws MsgException {
-		List<String> removedMailboxes = new ArrayList<String>();
-		Msg.info("Telling everyone the orchestration is done...");
-		Map<String, Set<String>> serviceMethodsMailboxEndpoints = managerServiceList.getServiceMethodsMailboxEndpoints();
-		
-		for(Set<String> listEndpoint : serviceMethodsMailboxEndpoints.values())
-			for (String mailbox : listEndpoint) {
-				if (!removedMailboxes.contains(mailbox)) {
-					FinalizeTask task = new FinalizeTask();
-					task.send(mailbox);
-					removedMailboxes.add(mailbox);
-				}
-			}
-		Msg.info("Orchestration is done. Bye!");
 	}
 	
 	public Map<String, Set<String>> getServiceMethodsMailboxEndpoints() {
