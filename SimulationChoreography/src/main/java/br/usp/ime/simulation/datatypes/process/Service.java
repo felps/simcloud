@@ -44,7 +44,6 @@ public class Service extends Process {
 		while (true) {
 			Task task = Task.receive("WS_" + wsName + "_at_" + host.getName());
 			Msg.info("Received task from "+ task.getSource().getName());
-
 			if (task instanceof WsRequest) {
 				executeMethod((WsRequest) task);
 			} 
@@ -58,7 +57,6 @@ public class Service extends Process {
 
 	public void executeMethod(WsRequest request) throws MsgException {
 		WsMethod method = requestWsMethodTask(request.serviceMethod);
-
 		method.execute();
 		Msg.info("Task completed");
 		String responseMailbox = request.senderMailbox;
@@ -74,7 +72,10 @@ public class Service extends Process {
 	}
 
 	public WsMethod requestWsMethodTask(String wsMethodName) {
-		return methods.get(wsMethodName);
+		WsMethod method = methods.get(wsMethodName);
+		WsMethod cloneMethod = new WsMethod(method.getName(),method.getComputeDuration(),0,
+				method.getOutputFileSizeInBytes());
+		return cloneMethod;
 	}
 
 	private void createMethod(String name, String computeSize,
