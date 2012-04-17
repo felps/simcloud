@@ -12,12 +12,12 @@ import br.usp.ime.simulation.datatypes.task.WsRequest;
 
 import commTime.FinalizeTask;
 
-public class WsRequestSender extends org.simgrid.msg.Process{
-	
+public class WsRequestSender extends org.simgrid.msg.Process {
+
 	public WsRequest request;
-	
+
 	public WsRequestSender(String[] args, Host host) {
-		super(host,"WsRequestSender", args);
+		super(host, "WsRequestSender", args);
 	}
 
 	@Override
@@ -25,7 +25,7 @@ public class WsRequestSender extends org.simgrid.msg.Process{
 		String destination = args[1];
 		Task request = null;
 		try {
-			Msg.info("Deserializing request: "+args[0]);
+			Msg.info("Deserializing request: " + args[0]);
 			request = WsRequest.fromString(args[0]);
 			Msg.info("DONE!");
 			Msg.info(request.getClass().getName());
@@ -34,25 +34,31 @@ public class WsRequestSender extends org.simgrid.msg.Process{
 		}
 
 		if (request instanceof WsRequest) {
-			Msg.info("Created Task for " + ((WsRequest) request).serviceMethod
+			WsRequest wsrequest = (WsRequest) request;
+			WsRequest clonerequest = cloneWsRequest(wsrequest,destination);
+			Msg.info("Created Task for " + clonerequest.serviceMethod
 					+ " with compute duration of "
-					+ request.getComputeDuration() + " and message size of "
-					+ ((WsRequest) request).inputMessageSize + " at "
-					+ destination);
-		} else if (request instanceof FinalizeTask)
-			Msg.info(" Terminating service at " + destination);
-		else
-			Msg.info(" Sending generic task to " + destination);
+					+ clonerequest.getComputeDuration()
+					+ " and message size of " + clonerequest.inputMessageSize
+					+ " at " + destination);
+			clonerequest.send(destination);
+		} else {
+			if (request instanceof FinalizeTask)
+				Msg.info(" Terminating service at " + destination);
+			else
+				Msg.info(" Sending generic task to " + destination);
+				request.send(destination);	
+			}
+	}
 
-		try {
-			request.send(destination);
-		} catch (TransferFailureException e) {
-			e.printStackTrace();
-		} catch (HostFailureException e) {
-			e.printStackTrace();
-		} catch (TimeoutException e) {
-			e.printStackTrace();
-		}
+	private WsRequest cloneWsRequest(WsRequest wsrequest,String destination) {
+		WsRequest clonerequest = new WsRequest(wsrequest.getId(),
+				wsrequest.serviceName, wsrequest.serviceMethod,
+				wsrequest.inputMessageSize, wsrequest.senderMailbox);
+		clonerequest.instanceId = wsrequest.instanceId;
+		clonerequest.senderMailbox = wsrequest.senderMailbox;
+		clonerequest.destination = destination;
+		return clonerequest;
 	}
 
 }

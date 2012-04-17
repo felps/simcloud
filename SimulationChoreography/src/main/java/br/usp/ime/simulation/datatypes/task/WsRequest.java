@@ -27,69 +27,38 @@ public class WsRequest extends Task implements Serializable{
 	public String destination;
 	private int id;
 	
-	
 
-//	@Override
-//	public int hashCode() {
-//		final int prime = 31;
-//		int result = 1;
-//		long temp;
-//		temp = Double.doubleToLongBits(inputMessageSize);
-//		result = prime * result + (int) (temp ^ (temp >>> 32));
-//		result = prime * result
-//				+ ((senderMailbox == null) ? 0 : senderMailbox.hashCode());
-//		result = prime * result
-//				+ ((serviceMethod == null) ? 0 : serviceMethod.hashCode());
-//		result = prime * result
-//				+ ((serviceName == null) ? 0 : serviceName.hashCode());
-//		return result;
-//	}
-//
-//
-//
-//	@Override
-//	public boolean equals(Object obj) {
-//		if (this == obj)
-//			return true;
-//		if (obj == null)
-//			return false;
-//		if (getClass() != obj.getClass())
-//			return false;
-//		WsRequest other = (WsRequest) obj;
-//		if (Double.doubleToLongBits(inputMessageSize) != Double
-//				.doubleToLongBits(other.inputMessageSize))
-//			return false;
-//		if (senderMailbox == null) {
-//			if (other.senderMailbox != null)
-//				return false;
-//		} else if (!senderMailbox.equals(other.senderMailbox))
-//			return false;
-//		if (serviceMethod == null) {
-//			if (other.serviceMethod != null)
-//				return false;
-//		} else if (!serviceMethod.equals(other.serviceMethod))
-//			return false;
-//		if (serviceName == null) {
-//			if (other.serviceName != null)
-//				return false;
-//		} else if (!serviceName.equals(other.serviceName))
-//			return false;
-//		return true;
-//	}
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public WsRequest(String wsName, String wsMethod, double messageSize, String senderMailbox) {
-		super(wsMethod, 1, messageSize);
+		super(wsMethod, 0, messageSize);
 
-		this.id = getId();
+		this.id = incrementId();
 		this.senderMailbox = senderMailbox;
 		serviceMethod = wsMethod;
 		serviceName = wsName;
 		inputMessageSize = messageSize;
 	}
 
+	public WsRequest(int id,String wsName, String wsMethod, double messageSize, String senderMailbox) {
+		super(wsMethod, 0, messageSize);
+
+		this.id = id;
+		this.senderMailbox = senderMailbox;
+		serviceMethod = wsMethod;
+		serviceName = wsName;
+		inputMessageSize = messageSize;
+	}
+	
 
 
-	private synchronized int getId() {
+	private synchronized int incrementId() {
 		return WsRequest.nextId++;
 	}
 
