@@ -37,9 +37,7 @@ public class Orchestration {
 	
 	
 	public void parseBpelFile(final String fileName) {
-		Msg.info("Creating requests");
-		parseBpelFileSmallOrchestration();
-		Msg.info("Requests created");
+		getDeliveryStatusRequest();
 	}
 
 	public void parseBpelFileSmallOrchestration() {
@@ -58,15 +56,18 @@ public class Orchestration {
 	}
 	
 	private void getDeliveryStatusRequest() {
-		WsRequest ws1 = new WsRequest("shipper", "getDeliveryStatus", 668, null);
+		WsRequest ws1 = new WsRequest("shipper", "getDeliveryStatus", 668.0, null);
 		
 		addRequest(ws1);
 	}
 	
 	private void getLowestPriceRequest() {
+		WsRequest ws0 = new WsRequest("registry","getList",299,null);
+		addRequest(ws0);
+
 		WsRequest ws1 = new WsRequest("supermarket", "getPrice", 336, null);
 		addRequest(ws1);
-
+		addDependency(ws1,ws0);
 		WsRequest ws2 = new WsRequest("supermarket", "getPrice", 336, null);
 		addRequest(ws2);
 		addDependency(ws2,ws1);

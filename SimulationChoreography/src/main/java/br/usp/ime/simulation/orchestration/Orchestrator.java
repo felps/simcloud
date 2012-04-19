@@ -11,6 +11,7 @@ import org.simgrid.msg.MsgException;
 
 import br.usp.ime.simulation.datatypes.task.ResponseTask;
 import br.usp.ime.simulation.datatypes.task.WsRequest;
+import br.usp.ime.simulation.log.Log;
 import br.usp.ime.simulation.shared.ServiceInvoker;
 
 import commTime.FinalizeTask;
@@ -22,13 +23,15 @@ public class Orchestrator extends ServiceInvoker {
 	private String myMailbox = "Orchestrator";
 	private HashMap<Integer, Orchestration> orchestrationInstances = new HashMap<Integer, Orchestration>();
 	private ArrayList<String> mailboxes = new ArrayList<String>();
+	private Log log;
 	
 	public void main(final String[] args) throws MsgException {
 		if (args.length != 4) {
 			Msg.info("The orchestrator must receive 4 inputs: Request quantity, request per sec rate, orchestration descriptor and ammount of orchestrated services");
 			System.exit(1);
 		}
-
+		log = new Log();
+		log.open();
 		final int ammountOfInstances = Integer.parseInt(args[0]);
 		Msg.info("Starting " + ammountOfInstances + " Orchestrations...");
 		orchestrate(ammountOfInstances);
@@ -49,8 +52,9 @@ public class Orchestrator extends ServiceInvoker {
 		sendInitialTasks();
 
 		while (!orchestrationInstances.isEmpty()) {
+			double start = Msg.getClock();
 			ResponseTask response = (ResponseTask) getResponse(myMailbox);
-
+			log.record(start, Msg.getClock(),"");
 			Orchestration orch = orchestrationInstances
 					.get(response.instanceId);
 			Msg.info("Task "+response.serviceMethod+" completed for instance " + response.instanceId);
@@ -59,7 +63,6 @@ public class Orchestrator extends ServiceInvoker {
 
 			if (orch.getReadyTasks().isEmpty()) {
 				Msg.info("No more tasks for orchestration " + orch.getId());
-				Msg.info("" + orchestrationInstances.size());
 				orchestrationInstances.remove(orch.getId());
 			} else {
 				submitReadyTasks(orch);
@@ -67,7 +70,7 @@ public class Orchestrator extends ServiceInvoker {
 		}
 
 		finalizeOrchestration();
-
+		log.close();
 	}
 
 	private void sendInitialTasks() throws MsgException {
@@ -82,7 +85,7 @@ public class Orchestrator extends ServiceInvoker {
 		Msg.info(readyTasks.size() + " tasks are ready!");
 		for (WsRequest request : readyTasks) {
 			String chosenMailbox = orch.getWsMailbox(request);
-			Msg.info(" Sending request for " + request.serviceMethod + " not to " + request.destination + " but to " + chosenMailbox);
+			Msg.info(" Sending request for " + request.serviceMethod + " to " + chosenMailbox);
 			invokeWsMethod(request, myMailbox, chosenMailbox);
 		}
 	}

@@ -25,10 +25,7 @@ public class WsRequestSender extends org.simgrid.msg.Process {
 		String destination = args[1];
 		Task request = null;
 		try {
-			Msg.info("Deserializing request: " + args[0]);
 			request = WsRequest.fromString(args[0]);
-			Msg.info("DONE!");
-			Msg.info(request.getClass().getName());
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -53,12 +50,13 @@ public class WsRequestSender extends org.simgrid.msg.Process {
 
 	private WsRequest cloneWsRequest(WsRequest wsrequest,String destination) {
 		WsRequest clonerequest = new WsRequest(wsrequest.getId(),
-				wsrequest.serviceName, wsrequest.serviceMethod,
-				wsrequest.inputMessageSize, wsrequest.senderMailbox);
+		wsrequest.serviceName, wsrequest.serviceMethod,
+		wsrequest.inputMessageSize, wsrequest.senderMailbox);
 		clonerequest.instanceId = wsrequest.instanceId;
 		clonerequest.senderMailbox = wsrequest.senderMailbox;
 		clonerequest.destination = destination;
 		return clonerequest;
 	}
+	
 
 }

@@ -33,7 +33,7 @@ public class ManagerServiceList {
 	public void createServiceList(final String deploymentInfo) {
 		Msg.info("Creating Service List");
 		try {
-			parseDeploymentFile(deploymentInfo);
+			parseDeploymentFileOpenCirrus(deploymentInfo);
 		} catch (MsgException e) {
 			e.printStackTrace();
 		}
@@ -75,7 +75,6 @@ public class ManagerServiceList {
 		addNewServiceMethod("registry", "getList", "registry");
 		// addNewServiceMethod("shipper", "setDelivery", "shipper");
 		// addNewServiceMethod("registry", "getList", "Bellemarre");
-		System.out.println(getServiceMethodsMailboxEndpoints());
 	}
 
 	private void addNewServiceMethod(final String wsName,

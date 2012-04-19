@@ -61,7 +61,6 @@ public class Service extends Process {
 		Msg.info("Task completed");
 		String responseMailbox = request.senderMailbox;
 		double outputFileSize = method.getOutputFileSizeInBytes();
-
 		ResponseTask response = new ResponseTask(outputFileSize);
 		response.serviceName = wsName;
 		response.instanceId = request.instanceId;
@@ -84,6 +83,5 @@ public class Service extends Process {
 				0, Double.parseDouble(outputFileSize));
 
 		methods.put(name, method);
-		Msg.info(" Created method " + name + " at " + wsName);
 	}
 }

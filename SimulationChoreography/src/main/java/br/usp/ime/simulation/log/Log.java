@@ -16,7 +16,7 @@ public class Log {
     private static BufferedWriter openLog(final String filename) {
         FileWriter fstream = null;
         try {
-            fstream = new FileWriter(filename);
+            fstream = new FileWriter(filename,true);
         } catch (IOException e) {
             System.err.println("Error while opening " + filename);
             e.printStackTrace();
@@ -25,21 +25,20 @@ public class Log {
         return new BufferedWriter(fstream);
     }
 	
-    public static void record(final BufferedWriter out, final long start, final long end,
-            String... extraCols) {
+    public void record( final double start, final double end, String... extraCols) {
         String line = end + " " + (end - start);
 
         for (String column : extraCols) {
             line = line + " " + column;
         }
 
-        writeln(out, line);
+        writeln(line);
     }
     
-    private static void writeln(final BufferedWriter out, String line) {
+    private static void writeln(String line) {
         try {
             synchronized (Log.class) {
-                out.write(line + "\n");
+                log.write(line + "\n");
             }
         } catch (IOException e) {
             System.err.println("Error while writing to file");
