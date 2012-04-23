@@ -50,7 +50,8 @@ public class Service extends Process {
 			Msg.info("Received task from "+ task.getSource().getName());
 			if (task instanceof WsRequest) {
 				WsRequest wsRequest = (WsRequest) task;
-				wsRequest.startTime = startTime;
+				if(wsRequest.startTime < Msg.getClock())
+					wsRequest.startTime = Msg.getClock();
 				executeMethod(wsRequest);
 			} 
 			
