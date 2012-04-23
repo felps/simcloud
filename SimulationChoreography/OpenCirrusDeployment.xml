@@ -78,11 +78,10 @@ purchaseRequest 419
 	
 
 	<process function="br.usp.ime.simulation.orchestration.Orchestrator" host="broker">
-		<argument value="1000" />  <!-- Amount of orchestration requests -->
+		<argument value="1" />  <!-- Amount of orchestration requests -->
 		<argument value="500" />   <!-- Requests per second -->
 		<argument value="10" />    <!-- Size of each returned value -->
 		<argument value="1" />    <!-- Amount of orchestrated service providers -->
 	</process>
-
 	
 </platform>

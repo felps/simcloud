@@ -3,10 +3,13 @@ package br.usp.ime.simulation.datatypes.process;
 import java.util.HashMap;
 
 import org.simgrid.msg.Host;
+import org.simgrid.msg.HostFailureException;
 import org.simgrid.msg.Msg;
 import org.simgrid.msg.MsgException;
 import org.simgrid.msg.Process;
 import org.simgrid.msg.Task;
+import org.simgrid.msg.TimeoutException;
+import org.simgrid.msg.TransferFailureException;
 
 import br.usp.ime.simulation.datatypes.task.ResponseTask;
 import br.usp.ime.simulation.datatypes.task.WsMethod;
@@ -42,10 +45,13 @@ public class Service extends Process {
 				+ "' from Service '" + wsName + "'");
 
 		while (true) {
+			double startTime = Msg.getClock(); 
 			Task task = Task.receive("WS_" + wsName + "_at_" + host.getName());
 			Msg.info("Received task from "+ task.getSource().getName());
 			if (task instanceof WsRequest) {
-				executeMethod((WsRequest) task);
+				WsRequest wsRequest = (WsRequest) task;
+				wsRequest.startTime = startTime;
+				executeMethod(wsRequest);
 			} 
 			
 			if (task instanceof FinalizeTask)
@@ -61,6 +67,12 @@ public class Service extends Process {
 		Msg.info("Task completed");
 		String responseMailbox = request.senderMailbox;
 		double outputFileSize = method.getOutputFileSizeInBytes();
+		sendResponseTask(request, responseMailbox, outputFileSize);
+	}
+
+	private void sendResponseTask(WsRequest request, String responseMailbox,
+			double outputFileSize) throws TransferFailureException,
+			HostFailureException, TimeoutException {
 		ResponseTask response = new ResponseTask(outputFileSize);
 		response.serviceName = wsName;
 		response.instanceId = request.instanceId;

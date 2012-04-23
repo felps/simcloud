@@ -30,6 +30,7 @@ public class WsRequest extends Task implements Serializable{
 	public boolean done = false;
 	public int instanceId = -1;
 	public String destination;
+	public double startTime;
 	private int id;
 	
 

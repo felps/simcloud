@@ -37,7 +37,7 @@ public class Orchestration {
 	
 	
 	public void parseBpelFile(final String fileName) {
-		getDeliveryStatusRequest();
+		makePurchaseRequest();
 	}
 
 	public void parseBpelFileSmallOrchestration() {

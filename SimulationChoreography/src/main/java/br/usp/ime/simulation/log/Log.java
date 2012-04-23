@@ -16,7 +16,7 @@ public class Log {
     private static BufferedWriter openLog(final String filename) {
         FileWriter fstream = null;
         try {
-            fstream = new FileWriter(filename,true);
+            fstream = new FileWriter(filename);
         } catch (IOException e) {
             System.err.println("Error while opening " + filename);
             e.printStackTrace();

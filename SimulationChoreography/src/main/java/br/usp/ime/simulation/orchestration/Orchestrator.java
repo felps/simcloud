@@ -23,14 +23,13 @@ public class Orchestrator extends ServiceInvoker {
 	private String myMailbox = "Orchestrator";
 	private HashMap<Integer, Orchestration> orchestrationInstances = new HashMap<Integer, Orchestration>();
 	private ArrayList<String> mailboxes = new ArrayList<String>();
-	private Log log;
+	private Log log = new Log();
 	
 	public void main(final String[] args) throws MsgException {
 		if (args.length != 4) {
 			Msg.info("The orchestrator must receive 4 inputs: Request quantity, request per sec rate, orchestration descriptor and ammount of orchestrated services");
 			System.exit(1);
 		}
-		log = new Log();
 		log.open();
 		final int ammountOfInstances = Integer.parseInt(args[0]);
 		Msg.info("Starting " + ammountOfInstances + " Orchestrations...");
@@ -52,9 +51,9 @@ public class Orchestrator extends ServiceInvoker {
 		sendInitialTasks();
 
 		while (!orchestrationInstances.isEmpty()) {
-			double start = Msg.getClock();
 			ResponseTask response = (ResponseTask) getResponse(myMailbox);
-			log.record(start, Msg.getClock(),"");
+				//startTime = response.requestServed.startTime;
+			log.record(response.requestServed.startTime, Msg.getClock(),response.serviceMethod);
 			Orchestration orch = orchestrationInstances
 					.get(response.instanceId);
 			Msg.info("Task "+response.serviceMethod+" completed for instance " + response.instanceId);
@@ -70,7 +69,6 @@ public class Orchestrator extends ServiceInvoker {
 		}
 
 		finalizeOrchestration();
-		log.close();
 	}
 
 	private void sendInitialTasks() throws MsgException {
@@ -103,7 +101,7 @@ public class Orchestrator extends ServiceInvoker {
 		}
 
 		Msg.info("Orchestration is done. Bye!");
-
+		log.close();
 	}
 
 	@Override
