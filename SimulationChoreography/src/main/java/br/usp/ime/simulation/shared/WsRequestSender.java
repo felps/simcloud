@@ -41,6 +41,7 @@ public class WsRequestSender extends org.simgrid.msg.Process {
 						+ clonerequest.getComputeDuration()
 						+ " and message size of "
 						+ clonerequest.inputMessageSize + " at " + destination);
+			clonerequest.startTime = Msg.getClock();
 			clonerequest.send(destination);
 		} else {
 			if (request instanceof FinalizeTask)

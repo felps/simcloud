@@ -57,9 +57,8 @@ public class Orchestrator extends ServiceInvoker {
 
 		while (!orchestrationInstances.isEmpty()) {
 			ResponseTask response = (ResponseTask) getResponse(myMailbox);
-			// startTime = response.requestServed.startTime;
-			log.record(response.requestServed.startTime, Msg.getClock(),
-					response.serviceMethod);
+			double startTime = response.requestServed.startTime;
+			log.record(startTime, Msg.getClock(),response.serviceMethod);
 			Orchestration orch = orchestrationInstances
 					.get(response.instanceId);
 			if (ControlVariables.DEBUG || ControlVariables.PRINT_ALERTS)
