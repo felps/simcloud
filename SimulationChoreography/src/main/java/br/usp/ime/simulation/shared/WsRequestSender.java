@@ -9,6 +9,7 @@ import org.simgrid.msg.TimeoutException;
 import org.simgrid.msg.TransferFailureException;
 
 import br.usp.ime.simulation.datatypes.task.WsRequest;
+import br.usp.ime.simulation.experiments.control.ControlVariables;
 
 import commTime.FinalizeTask;
 
@@ -32,31 +33,34 @@ public class WsRequestSender extends org.simgrid.msg.Process {
 
 		if (request instanceof WsRequest) {
 			WsRequest wsrequest = (WsRequest) request;
-			WsRequest clonerequest = cloneWsRequest(wsrequest,destination);
-			Msg.info("Created Task for " + clonerequest.serviceMethod
-					+ " with compute duration of "
-					+ clonerequest.getComputeDuration()
-					+ " and message size of " + clonerequest.inputMessageSize
-					+ " at " + destination);
+			WsRequest clonerequest = cloneWsRequest(wsrequest, destination);
+			if (ControlVariables.DEBUG
+					|| ControlVariables.PRINT_TASK_TRANSMISSION)
+				Msg.info("Created Task for " + clonerequest.serviceMethod
+						+ " with compute duration of "
+						+ clonerequest.getComputeDuration()
+						+ " and message size of "
+						+ clonerequest.inputMessageSize + " at " + destination);
 			clonerequest.send(destination);
 		} else {
 			if (request instanceof FinalizeTask)
-				Msg.info(" Terminating service at " + destination);
-			else
-				Msg.info(" Sending generic task to " + destination);
-				request.send(destination);	
-			}
+				if (ControlVariables.DEBUG || ControlVariables.PRINT_ALERTS)
+					Msg.info(" Terminating service at " + destination);
+				else if (ControlVariables.DEBUG
+						|| ControlVariables.PRINT_ALERTS)
+					Msg.info(" Sending generic task to " + destination);
+			request.send(destination);
+		}
 	}
 
-	private WsRequest cloneWsRequest(WsRequest wsrequest,String destination) {
+	private WsRequest cloneWsRequest(WsRequest wsrequest, String destination) {
 		WsRequest clonerequest = new WsRequest(wsrequest.getId(),
-		wsrequest.serviceName, wsrequest.serviceMethod,
-		wsrequest.inputMessageSize, wsrequest.senderMailbox);
+				wsrequest.serviceName, wsrequest.serviceMethod,
+				wsrequest.inputMessageSize, wsrequest.senderMailbox);
 		clonerequest.instanceId = wsrequest.instanceId;
 		clonerequest.senderMailbox = wsrequest.senderMailbox;
 		clonerequest.destination = destination;
 		return clonerequest;
 	}
-	
 
 }

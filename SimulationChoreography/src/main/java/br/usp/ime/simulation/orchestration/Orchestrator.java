@@ -11,6 +11,7 @@ import org.simgrid.msg.MsgException;
 
 import br.usp.ime.simulation.datatypes.task.ResponseTask;
 import br.usp.ime.simulation.datatypes.task.WsRequest;
+import br.usp.ime.simulation.experiments.control.ControlVariables;
 import br.usp.ime.simulation.log.Log;
 import br.usp.ime.simulation.shared.ServiceInvoker;
 
@@ -24,7 +25,7 @@ public class Orchestrator extends ServiceInvoker {
 	private HashMap<Integer, Orchestration> orchestrationInstances = new HashMap<Integer, Orchestration>();
 	private ArrayList<String> mailboxes = new ArrayList<String>();
 	private Log log = new Log();
-	
+
 	public void main(final String[] args) throws MsgException {
 		if (args.length != 4) {
 			Msg.info("The orchestrator must receive 4 inputs: Request quantity, request per sec rate, orchestration descriptor and ammount of orchestrated services");
@@ -32,7 +33,8 @@ public class Orchestrator extends ServiceInvoker {
 		}
 		log.open();
 		final int ammountOfInstances = Integer.parseInt(args[0]);
-		Msg.info("Starting " + ammountOfInstances + " Orchestrations...");
+		if (ControlVariables.DEBUG || ControlVariables.PRINT_ALERTS)
+			Msg.info("Starting " + ammountOfInstances + " Orchestrations...");
 		orchestrate(ammountOfInstances);
 	}
 
@@ -48,20 +50,27 @@ public class Orchestrator extends ServiceInvoker {
 			orchestrationInstances.put(i, orquestration);
 		}
 
+		if (ControlVariables.DEBUG || ControlVariables.PRINT_TIME_FOR_ORCH_REQ)
+			Msg.info("Beginning Orchestrations...");
+		
 		sendInitialTasks();
 
 		while (!orchestrationInstances.isEmpty()) {
 			ResponseTask response = (ResponseTask) getResponse(myMailbox);
-				//startTime = response.requestServed.startTime;
-			log.record(response.requestServed.startTime, Msg.getClock(),response.serviceMethod);
+			// startTime = response.requestServed.startTime;
+			log.record(response.requestServed.startTime, Msg.getClock(),
+					response.serviceMethod);
 			Orchestration orch = orchestrationInstances
 					.get(response.instanceId);
-			Msg.info("Task "+response.serviceMethod+" completed for instance " + response.instanceId);
-			
+			if (ControlVariables.DEBUG || ControlVariables.PRINT_ALERTS)
+				Msg.info("Task " + response.serviceMethod
+						+ " completed for instance " + response.instanceId);
+
 			orch.notifyTaskConclusion(response.requestServed);
 
 			if (orch.getReadyTasks().isEmpty()) {
-				Msg.info("No more tasks for orchestration " + orch.getId());
+				if (ControlVariables.DEBUG || ControlVariables.PRINT_ALERTS || ControlVariables.PRINT_TIME_FOR_ORCH_REQ)
+					Msg.info("No more tasks for orchestration " + orch.getId());
 				orchestrationInstances.remove(orch.getId());
 			} else {
 				submitReadyTasks(orch);
@@ -75,32 +84,41 @@ public class Orchestrator extends ServiceInvoker {
 		for (Orchestration orch : orchestrationInstances.values()) {
 			submitReadyTasks(orch);
 		}
-		Msg.info("Done sending tasks");
+		if (ControlVariables.DEBUG || ControlVariables.PRINT_ALERTS)
+			Msg.info("Done sending tasks");
 	}
 
 	private void submitReadyTasks(Orchestration orch) throws MsgException {
 		List<WsRequest> readyTasks = orch.getReadyTasks();
-		Msg.info(readyTasks.size() + " tasks are ready!");
+		if (ControlVariables.DEBUG || ControlVariables.PRINT_ALERTS)
+			Msg.info(readyTasks.size() + " tasks are ready!");
 		for (WsRequest request : readyTasks) {
 			String chosenMailbox = orch.getWsMailbox(request);
-			Msg.info(" Sending request for " + request.serviceMethod + " to " + chosenMailbox);
+			if (ControlVariables.DEBUG
+					|| ControlVariables.PRINT_TASK_TRANSMISSION)
+				Msg.info(" Sending request for " + request.serviceMethod
+						+ " to " + chosenMailbox);
 			invokeWsMethod(request, myMailbox, chosenMailbox);
 		}
 	}
 
 	private void finalizeOrchestration() throws MsgException {
 		ArrayList<String> removedMailboxes = new ArrayList<String>();
-		Msg.info("Telling everyone the orchestration is done...");
+		if (ControlVariables.DEBUG || ControlVariables.PRINT_ALERTS)
+			Msg.info("Telling everyone the orchestration is done...");
 		for (String mailbox : mailboxes) {
 			if (!removedMailboxes.contains(mailbox)) {
 				FinalizeTask task = new FinalizeTask();
-				Msg.info(" Sending termination signal to "+mailbox);
+				if (ControlVariables.DEBUG || ControlVariables.PRINT_ALERTS
+						|| ControlVariables.PRINT_TASK_TRANSMISSION)
+					Msg.info(" Sending termination signal to " + mailbox);
 				task.send(mailbox);
 				removedMailboxes.add(mailbox);
 			}
 		}
 
-		Msg.info("Orchestration is done. Bye!");
+		if (ControlVariables.DEBUG || ControlVariables.PRINT_ALERTS)
+			Msg.info("Orchestration is done. Bye!");
 		log.close();
 	}
 

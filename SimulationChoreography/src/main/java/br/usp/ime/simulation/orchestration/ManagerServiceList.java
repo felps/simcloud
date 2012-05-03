@@ -1,14 +1,14 @@
 package br.usp.ime.simulation.orchestration;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.simgrid.msg.Msg;
 import org.simgrid.msg.MsgException;
+
+import br.usp.ime.simulation.experiments.control.ControlVariables;
 
 public class ManagerServiceList {
 	private final Map<String, Set<String>> serviceMethodsMailboxEndpoints;
@@ -31,7 +31,8 @@ public class ManagerServiceList {
 	}
 
 	public void createServiceList(final String deploymentInfo) {
-		Msg.info("Creating Service List");
+		if (ControlVariables.DEBUG || ControlVariables.PRINT_ALERTS)
+			Msg.info("Creating Service List");
 		try {
 			parseDeploymentFileOpenCirrus(deploymentInfo);
 		} catch (MsgException e) {
@@ -51,28 +52,28 @@ public class ManagerServiceList {
 		// addNewServiceMethod("supermarket", "purchase", "supermarket2");
 		// addNewServiceMethod("supermarket", "getPrice", "supermarket3");
 		// addNewServiceMethod("supermarket", "purchase", "supermarket3");
-		addNewServiceMethod("shipper", "getDeliveryStatus", "Bellemarre");
-		addNewServiceMethod("shipper", "setDelivery", "Bellemarre");
-		addNewServiceMethod("registry", "getList", "Bellemarre");
+		addNewServiceMethod("shipper", "getDeliveryStatus", "iRMX");
+		addNewServiceMethod("shipper", "setDelivery", "iRMX");
+		addNewServiceMethod("registry", "getList", "Revoada");
 		// addNewServiceMethod("shipper", "setDelivery", "shipper");
-		addNewServiceMethod("registry", "getList", "Bellemarre");
+		addNewServiceMethod("registry", "getList", "Revoada");
 
 	}
 
 	private void parseDeploymentFileOpenCirrus(final String deploymentFile)
 			throws MsgException {
 		// example to small orchestration
-		addNewServiceMethod("supermarket", "getPrice", "supermarket1");
-		addNewServiceMethod("supermarket", "purchase", "supermarket1");
+		addNewServiceMethod("supermarket", "getPrice", "Bellemarre");
+		addNewServiceMethod("supermarket", "purchase", "Bellemarre");
 		// addNewServiceMethod("supermarket", "getPrice", "Bellemarre");
 		// addNewServiceMethod("supermarket", "purchase", "Bellemarre");
-		addNewServiceMethod("supermarket", "getPrice", "supermarket2");
-		addNewServiceMethod("supermarket", "purchase", "supermarket2");
-		addNewServiceMethod("supermarket", "getPrice", "supermarket3");
-		addNewServiceMethod("supermarket", "purchase", "supermarket3");
-		addNewServiceMethod("shipper", "getDeliveryStatus", "shipper");
-		addNewServiceMethod("shipper", "setDelivery", "shipper");
-		addNewServiceMethod("registry", "getList", "registry");
+		// addNewServiceMethod("supermarket", "getPrice", "supermarket2");
+		// addNewServiceMethod("supermarket", "purchase", "supermarket2");
+		// addNewServiceMethod("supermarket", "getPrice", "supermarket3");
+		// addNewServiceMethod("supermarket", "purchase", "supermarket3");
+		addNewServiceMethod("shipper", "getDeliveryStatus", "iRMX");
+		addNewServiceMethod("shipper", "setDelivery", "iRMX");
+		addNewServiceMethod("registry", "getList", "Revoada");
 		// addNewServiceMethod("shipper", "setDelivery", "shipper");
 		// addNewServiceMethod("registry", "getList", "Bellemarre");
 	}
