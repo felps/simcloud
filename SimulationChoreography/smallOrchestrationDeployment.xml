@@ -5,48 +5,51 @@
 	<process host="Bellemarre" function="br.usp.ime.simulation.datatypes.process.Service">
 
 		<argument value="supermarket" />  <!-- Service Name -->
+		<argument value="1"/> <!-- Ammount of workers -->
 
 		<argument value="getPrice" />  <!-- Service Method Name -->
-		<argument value="300" />  <!-- Method computing size -->
-		<argument value="100" />  <!-- Output File Size -->
+		<argument value="3000" />  <!-- Method computing size -->
+		<argument value="3000" />  <!-- Output File Size -->
 
 		<argument value="sellProduct" />  <!-- Service Method Name -->
-		<argument value="1000" />  <!-- Method computing size -->
-		<argument value="200" />  <!-- Output File Size -->
+		<argument value="3000" />  <!-- Method computing size -->
+		<argument value="3000" />  <!-- Output File Size -->
 
 		<argument value="purchase" />  <!-- Service Method Name -->
-		<argument value="1000" />  <!-- Method computing size -->
-		<argument value="200" />  <!-- Output File Size -->
+		<argument value="3000" />  <!-- Method computing size -->
+		<argument value="3000" />  <!-- Output File Size -->
 	</process>
 
-	<process host="Bellemarre" function="br.usp.ime.simulation.datatypes.process.Service">
+	<process host="iRMX" function="br.usp.ime.simulation.datatypes.process.Service">
 
 		<argument value="shipper" />  <!-- Service Name -->
+		<argument value="1"/> <!-- Ammount of workers -->
 
 		<argument value="setDelivery" />  <!-- Service Method Name -->
-		<argument value="300" />  <!-- Method computing size -->
-		<argument value="100" />  <!-- Output File Size -->
+		<argument value="3000" />  <!-- Method computing size -->
+		<argument value="3000" />  <!-- Output File Size -->
 
 
 		<argument value="getDeliveryStatus" />  <!-- Service Method Name -->
-		<argument value="1000" />  <!-- Method computing size -->
-		<argument value="200" />  <!-- Output File Size -->
+		<argument value="3000" />  <!-- Method computing size -->
+		<argument value="3000" />  <!-- Output File Size -->
 
 	</process>
 
-	<process host="Bellemarre" function="br.usp.ime.simulation.datatypes.process.Service">
+	<process host="Revoada" function="br.usp.ime.simulation.datatypes.process.Service">
 
 		<argument value="registry" />  <!-- Service Name -->
+		<argument value="1"/> <!-- Ammount of workers -->
 
 		<argument value="getList" />  <!-- Service Method Name -->
-		<argument value="300" />  <!-- Method computing size -->
-		<argument value="100" />  <!-- Output File Size -->
+		<argument value="3000" />  <!-- Method computing size -->
+		<argument value="3000" />  <!-- Output File Size -->
 
 	</process>
 
 	<process host="Jacquelin"
 		function="br.usp.ime.simulation.orchestration.Orchestrator">
-		<argument value="1" />  <!-- Amount of orchestration requests -->
+		<argument value="1000" />  <!-- Amount of orchestration requests -->
 		<argument value="500" />   <!-- Requests per second -->
 		<argument value="10" />    <!-- Size of each returned value -->
 		<argument value="1" />    <!-- Amount of orchestrated service providers -->
