@@ -1,0 +1,105 @@
+<?xml version='1.0'?>
+<!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid.dtd">
+<platform version="3">
+	<process function="service_chor_controller" host="broker">
+	    <argument value="4"/>
+	    <argument value="broker"/>
+	    <argument value="method"/>
+		<argument value="run"/>
+		<argument value="0"/><!-- exec time-->
+		<argument value="100"/><!-- output size -->
+		<argument value="exec"/>
+		<argument value="invoke"/>
+		    <argument value="service1"/>
+		    <argument value="call"/>
+		    <argument value="100"/>
+		<argument value="wait"/>
+		<argument value="invoke"/>
+		    <argument value="service2"/>
+		    <argument value="call"/>
+		    <argument value="100"/>
+		<argument value="wait"/>
+		<argument value="invoke"/>
+		    <argument value="service3"/>
+		    <argument value="call"/>
+		    <argument value="100"/>
+		<argument value="wait"/>
+		<argument value="invoke"/>
+		    <argument value="service4"/>
+		    <argument value="call"/>
+		    <argument value="100"/>
+		<argument value="wait"/>
+		<argument value="invoke"/>
+		    <argument value="service5"/>
+		    <argument value="call"/>
+		    <argument value="100"/>
+		<argument value="wait"/>
+	</process>
+
+	<process function="service_chor_controller" host="supermarket1">
+	    <argument value="4"/>
+	    <argument value="service1"/>
+	    <argument value="method"/>
+		<argument value="call"/>
+		<argument value="100"/>
+		<argument value="100"/>
+		<argument value="exec"/>
+	</process>
+
+	<process function="service_chor_controller" host="supermarket2">
+	    <argument value="4"/>
+	    <argument value="service2"/>
+	    <argument value="method"/>
+		<argument value="call"/>
+		<argument value="100"/>
+		<argument value="100"/>
+		<argument value="exec"/>
+	</process>
+
+	<process function="service_chor_controller" host="supermarket3">
+	    <argument value="4"/>
+	    <argument value="service3"/>
+	    <argument value="method"/>
+		<argument value="call"/>
+		<argument value="100"/>
+		<argument value="100"/>
+		<argument value="exec"/>
+	</process>
+
+	<process function="service_chor_controller" host="supermarket4">
+	    <argument value="4"/>
+	    <argument value="service4"/>
+	    <argument value="method"/>
+		<argument value="call"/>
+		<argument value="100"/>
+		<argument value="100"/>
+		<argument value="exec"/>
+	</process>
+	
+	<process function="service_chor_controller" host="supermarket5">
+	    <argument value="4"/>
+	    <argument value="service5"/>
+	    <argument value="method"/>
+		<argument value="call"/>
+		<argument value="100"/>
+		<argument value="100"/>
+		<argument value="exec"/>
+	</process>
+
+
+	<process function="broker_controller" host="customer">
+	    <argument value="100" />
+	    <argument value="0" /> 
+<!--	    <argument value="broker"/>
+	    <argument value="getLowestPrice"/>
+	    <argument value="641"/>
+-->	    <argument value="broker"/>
+	    <argument value="run"/>
+	    <argument value="100"/>
+<!--	    <argument value="broker"/>
+	    <argument value="getShipmentData"/>
+	    <argument value="641"/>
+   --> 
+    
+	</process>
+</platform>

@@ -1,0 +1,100 @@
+<?xml version='1.0'?>
+<!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid.dtd">
+<platform version="3">
+	<process function="service_controller" host="shipper">
+		<argument value="10"/><!-- number of threads-->
+		<argument value="shipper" /> <!-- service name -->
+	
+		<argument value="getDeliveryStatus" />  <!-- method name -->
+		<argument value="109.660783021" /> <!-- exec time in MI -->
+		<argument value="799" /> <!-- output msg size -->
+
+		<argument value="setDelivery" />
+		<argument value="105.367823337" /> 
+		<argument value="241" />
+	</process>
+	<process function="service_controller" host="supermarket1">
+		<argument value="1"/>
+		<argument value="supermarket1" />  <!-- Service Name -->
+		
+		<argument value="getPrice" />  <!-- Service Method Name -->
+		<argument value="108.012000119" /> 
+		<argument value="532" />
+
+		<argument value="purchase" />  <!-- Service Method Name -->
+		<argument value="157.613427649" />
+		<argument value="593" />
+	</process>
+	
+	<process function="service_controller" host="supermarket2">
+		<argument value="1"/>
+		<argument value="supermarket2" />  <!-- Service Name -->
+		
+		<argument value="getPrice" />  <!-- Service Method Name -->
+		<argument value="108.012000119" />  
+		<argument value="532" />
+
+		<argument value="purchase" />  <!-- Service Method Name -->
+		<argument value="157.613427649" /> 
+		<argument value="593" />
+	</process>
+	
+	<process function="service_controller" host="supermarket3">
+		<argument value="1"/>
+		<argument value="supermarket3" />  <!-- Service Name -->
+		
+		<argument value="getPrice" />  <!-- Service Method Name -->
+		<argument value="108.012000119" />  
+		<argument value="532" />
+
+		<argument value="purchase" />  <!-- Service Method Name -->
+		<argument value="157.613427649" />
+		<argument value="593" /> 
+	</process>	
+	
+	<process function="service_controller" host="registry">
+		<argument value="1"/>
+		<argument value="registry" />  <!-- Service Name -->
+		
+		<argument value="getList" />  <!-- Service Method Name -->
+		<argument value="1.0" />  <!-- need update -->
+		<argument value="453" /> 
+	</process>
+	
+	<process function="service_controller" host="customer">
+		
+		<argument value="1"/>
+		<argument value="customer" />  
+		
+		<argument value="getLowestPrice" /> 
+		<argument value="222858.540541" /> 
+		<argument value="323" /> 
+		
+		<argument value="getShipmentData" /> 
+		<argument value="6816.22967658" /> 
+		<argument value="795" />
+		
+		<argument value="makePurchase" /> 
+		<argument value="25162.3171171" /> 
+		<argument value="1375" />
+	</process>
+
+	<process function="broker_controller" host="broker">
+		<argument value="10"/>
+		<argument value="0" /> <!-- requests/s-->
+		<argument value="shipper"/>
+		<argument value="getDeliveryStatus"/>
+		<argument value="641"/>
+	</process>
+<!-- methods and sizeof input 
+
+getLowestPriceForListRequest 361
+ getShipmentDataRequest	641
+makePurchaseRequest	420
+getListRequest 299
+getDeliveryStatusRequest 668
+setDeliveryRequest 654
+getPricesRequest 336
+purchaseRequest 419
+-->
+</platform>
