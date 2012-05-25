@@ -1,0 +1,462 @@
+<?xml version='1.0'?>
+ <!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid.dtd">
+ <platform version="3">
+ <AS routing="Full" id="OpenCirrus">
+ <host power="6000" id="broker" core="4"></host><!-- power=6000bogomips-->
+<host power="6000" id="customer" core="4"></host>
+ <host power="6000" id="shipper1" core="4"></host>
+ <host power="6000" id="shipper2" core="4"></host>
+ <host power="6000" id="supermarket1" core="4"></host>
+ <host power="6000" id="supermarket2" core="4"></host>
+ <host power="6000" id="supermarket3" core="4"></host>
+ <host power="6000" id="registry" core="4"></host>
+ <host power="6000" id="bank" core="4"></host>
+ <host power="6000" id="supermarket4" core="4"></host>
+<host power="6000" id="supermarket5" core="4"></host>
+<host power="6000" id="supplier1" core="4"></host>
+<host power="6000" id="supplier2" core="4"></host>
+<host power="6000" id="supplier3" core="4"></host>
+<host power="6000" id="manufacturer" core="4"></host>
+
+
+<link bandwidth="117875000" latency="1" sharing_policy="SHARED" id="lbroker"></link><!-- bw in bytes/s and lt in seconds -->
+<link bandwidth="117875000" latency="1" sharing_policy="SHARED" id="lshipper1"></link><!-- bw in bytes/s and lt in seconds -->
+<link bandwidth="117875000" latency="1" sharing_policy="SHARED" id="lshipper2"></link><!-- bw in bytes/s and lt in seconds -->
+<link bandwidth="117875000" latency="1" sharing_policy="SHARED" id="lsupermarket1"></link><!-- bw in bytes/s and lt in seconds -->
+<link bandwidth="117875000" latency="1" sharing_policy="SHARED" id="lsupermarket2"></link><!-- bw in bytes/s and lt in seconds -->
+<link bandwidth="117875000" latency="1" sharing_policy="SHARED" id="lsupermarket3"></link><!-- bw in bytes/s and lt in seconds -->
+<link bandwidth="117875000" latency="1" sharing_policy="SHARED" id="lregistry"></link><!-- bw in bytes/s and lt in seconds -->
+<link bandwidth="117875000" latency="1" sharing_policy="SHARED" id="lcustomer"></link><!-- bw in bytes/s and lt in seconds -->
+
+<link bandwidth="117875000" latency="1" sharing_policy="SHARED" id="lbank"></link><!-- bw in bytes/s and lt in seconds -->
+<link bandwidth="117875000" latency="1" sharing_policy="SHARED" id="lsupermarket4"></link><!-- bw in bytes/s and lt in seconds -->
+<link bandwidth="117875000" latency="1" sharing_policy="SHARED" id="lsupermarket5"></link><!-- bw in bytes/s and lt in seconds -->
+<link bandwidth="117875000" latency="1" sharing_policy="SHARED" id="lsupplier1"></link><!-- bw in bytes/s and lt in seconds -->
+<link bandwidth="117875000" latency="1" sharing_policy="SHARED" id="lsupplier2"></link><!-- bw in bytes/s and lt in seconds -->
+<link bandwidth="117875000" latency="1" sharing_policy="SHARED" id="lsupplier3"></link><!-- bw in bytes/s and lt in seconds -->
+<link bandwidth="117875000" latency="1" sharing_policy="SHARED" id="lmanufacturer"></link><!-- bw in bytes/s and lt in seconds -->
+
+
+<route src="broker" dst="shipper1">
+<link_ctn id="lbroker"/>
+<link_ctn id="lshipper1"/>
+</route>
+<route src="broker" dst="shipper2">
+<link_ctn id="lbroker"/>
+<link_ctn id="lshipper2"/>
+</route>
+<route src="broker" dst="supplier1">
+<link_ctn id="lbroker"/>
+<link_ctn id="lsupplier1"/>
+</route>
+<route src="broker" dst="supplier2">
+<link_ctn id="lbroker"/>
+<link_ctn id="lsupplier2"/>
+</route>
+<route src="broker" dst="supplier3">
+<link_ctn id="lbroker"/>
+<link_ctn id="lsupplier3"/>
+</route>
+<route src="broker" dst="manufacturer">
+<link_ctn id="lbroker"/>
+<link_ctn id="lmanufacturer"/>
+</route>
+<route src="broker" dst="supermarket1">
+<link_ctn id="lbroker"/>
+<link_ctn id="lsupermarket1"/>
+</route>
+<route src="broker" dst="supermarket2">
+<link_ctn id="lbroker"/>
+<link_ctn id="lsupermarket2"/>
+</route>
+<route src="broker" dst="supermarket3">
+<link_ctn id="lbroker"/>
+<link_ctn id="lsupermarket3"/>
+</route>
+<route src="broker" dst="supermarket4">
+<link_ctn id="lbroker"/>
+<link_ctn id="lsupermarket4"/>
+</route>
+<route src="broker" dst="supermarket5">
+<link_ctn id="lbroker"/>
+<link_ctn id="lsupermarket5"/>
+</route>
+<route src="broker" dst="registry">
+<link_ctn id="lbroker"/>
+<link_ctn id="lregistry"/>
+</route>
+<route src="broker" dst="customer">
+<link_ctn id="lbroker"/>
+<link_ctn id="lcustomer"/>
+</route>
+<route src="broker" dst="bank">
+<link_ctn id="lbroker"/>
+<link_ctn id="lbank"/>
+</route>
+<route src="shipper1" dst="shipper2">
+<link_ctn id="lshipper1"/>
+<link_ctn id="lshipper2"/>
+</route>
+<route src="shipper1" dst="supplier1">
+<link_ctn id="lshipper1"/>
+<link_ctn id="lsupplier1"/>
+</route>
+<route src="shipper1" dst="supplier2">
+<link_ctn id="lshipper1"/>
+<link_ctn id="lsupplier2"/>
+</route>
+<route src="shipper1" dst="supplier3">
+<link_ctn id="lshipper1"/>
+<link_ctn id="lsupplier3"/>
+</route>
+<route src="shipper1" dst="manufacturer">
+<link_ctn id="lshipper1"/>
+<link_ctn id="lmanufacturer"/>
+</route>
+<route src="shipper1" dst="supermarket1">
+<link_ctn id="lshipper1"/>
+<link_ctn id="lsupermarket1"/>
+</route>
+<route src="shipper1" dst="supermarket2">
+<link_ctn id="lshipper1"/>
+<link_ctn id="lsupermarket2"/>
+</route>
+<route src="shipper1" dst="supermarket3">
+<link_ctn id="lshipper1"/>
+<link_ctn id="lsupermarket3"/>
+</route>
+<route src="shipper1" dst="supermarket4">
+<link_ctn id="lshipper1"/>
+<link_ctn id="lsupermarket4"/>
+</route>
+<route src="shipper1" dst="supermarket5">
+<link_ctn id="lshipper1"/>
+<link_ctn id="lsupermarket5"/>
+</route>
+<route src="shipper1" dst="registry">
+<link_ctn id="lshipper1"/>
+<link_ctn id="lregistry"/>
+</route>
+<route src="shipper1" dst="customer">
+<link_ctn id="lshipper1"/>
+<link_ctn id="lcustomer"/>
+</route>
+<route src="shipper1" dst="bank">
+<link_ctn id="lshipper1"/>
+<link_ctn id="lbank"/>
+</route>
+<route src="shipper2" dst="supplier1">
+<link_ctn id="lshipper2"/>
+<link_ctn id="lsupplier1"/>
+</route>
+<route src="shipper2" dst="supplier2">
+<link_ctn id="lshipper2"/>
+<link_ctn id="lsupplier2"/>
+</route>
+<route src="shipper2" dst="supplier3">
+<link_ctn id="lshipper2"/>
+<link_ctn id="lsupplier3"/>
+</route>
+<route src="shipper2" dst="manufacturer">
+<link_ctn id="lshipper2"/>
+<link_ctn id="lmanufacturer"/>
+</route>
+<route src="shipper2" dst="supermarket1">
+<link_ctn id="lshipper2"/>
+<link_ctn id="lsupermarket1"/>
+</route>
+<route src="shipper2" dst="supermarket2">
+<link_ctn id="lshipper2"/>
+<link_ctn id="lsupermarket2"/>
+</route>
+<route src="shipper2" dst="supermarket3">
+<link_ctn id="lshipper2"/>
+<link_ctn id="lsupermarket3"/>
+</route>
+<route src="shipper2" dst="supermarket4">
+<link_ctn id="lshipper2"/>
+<link_ctn id="lsupermarket4"/>
+</route>
+<route src="shipper2" dst="supermarket5">
+<link_ctn id="lshipper2"/>
+<link_ctn id="lsupermarket5"/>
+</route>
+<route src="shipper2" dst="registry">
+<link_ctn id="lshipper2"/>
+<link_ctn id="lregistry"/>
+</route>
+<route src="shipper2" dst="customer">
+<link_ctn id="lshipper2"/>
+<link_ctn id="lcustomer"/>
+</route>
+<route src="shipper2" dst="bank">
+<link_ctn id="lshipper2"/>
+<link_ctn id="lbank"/>
+</route>
+<route src="supplier1" dst="supplier2">
+<link_ctn id="lsupplier1"/>
+<link_ctn id="lsupplier2"/>
+</route>
+<route src="supplier1" dst="supplier3">
+<link_ctn id="lsupplier1"/>
+<link_ctn id="lsupplier3"/>
+</route>
+<route src="supplier1" dst="manufacturer">
+<link_ctn id="lsupplier1"/>
+<link_ctn id="lmanufacturer"/>
+</route>
+<route src="supplier1" dst="supermarket1">
+<link_ctn id="lsupplier1"/>
+<link_ctn id="lsupermarket1"/>
+</route>
+<route src="supplier1" dst="supermarket2">
+<link_ctn id="lsupplier1"/>
+<link_ctn id="lsupermarket2"/>
+</route>
+<route src="supplier1" dst="supermarket3">
+<link_ctn id="lsupplier1"/>
+<link_ctn id="lsupermarket3"/>
+</route>
+<route src="supplier1" dst="supermarket4">
+<link_ctn id="lsupplier1"/>
+<link_ctn id="lsupermarket4"/>
+</route>
+<route src="supplier1" dst="supermarket5">
+<link_ctn id="lsupplier1"/>
+<link_ctn id="lsupermarket5"/>
+</route>
+<route src="supplier1" dst="registry">
+<link_ctn id="lsupplier1"/>
+<link_ctn id="lregistry"/>
+</route>
+<route src="supplier1" dst="customer">
+<link_ctn id="lsupplier1"/>
+<link_ctn id="lcustomer"/>
+</route>
+<route src="supplier1" dst="bank">
+<link_ctn id="lsupplier1"/>
+<link_ctn id="lbank"/>
+</route>
+<route src="supplier2" dst="supplier3">
+<link_ctn id="lsupplier2"/>
+<link_ctn id="lsupplier3"/>
+</route>
+<route src="supplier2" dst="manufacturer">
+<link_ctn id="lsupplier2"/>
+<link_ctn id="lmanufacturer"/>
+</route>
+<route src="supplier2" dst="supermarket1">
+<link_ctn id="lsupplier2"/>
+<link_ctn id="lsupermarket1"/>
+</route>
+<route src="supplier2" dst="supermarket2">
+<link_ctn id="lsupplier2"/>
+<link_ctn id="lsupermarket2"/>
+</route>
+<route src="supplier2" dst="supermarket3">
+<link_ctn id="lsupplier2"/>
+<link_ctn id="lsupermarket3"/>
+</route>
+<route src="supplier2" dst="supermarket4">
+<link_ctn id="lsupplier2"/>
+<link_ctn id="lsupermarket4"/>
+</route>
+<route src="supplier2" dst="supermarket5">
+<link_ctn id="lsupplier2"/>
+<link_ctn id="lsupermarket5"/>
+</route>
+<route src="supplier2" dst="registry">
+<link_ctn id="lsupplier2"/>
+<link_ctn id="lregistry"/>
+</route>
+<route src="supplier2" dst="customer">
+<link_ctn id="lsupplier2"/>
+<link_ctn id="lcustomer"/>
+</route>
+<route src="supplier2" dst="bank">
+<link_ctn id="lsupplier2"/>
+<link_ctn id="lbank"/>
+</route>
+<route src="supplier3" dst="manufacturer">
+<link_ctn id="lsupplier3"/>
+<link_ctn id="lmanufacturer"/>
+</route>
+<route src="supplier3" dst="supermarket1">
+<link_ctn id="lsupplier3"/>
+<link_ctn id="lsupermarket1"/>
+</route>
+<route src="supplier3" dst="supermarket2">
+<link_ctn id="lsupplier3"/>
+<link_ctn id="lsupermarket2"/>
+</route>
+<route src="supplier3" dst="supermarket3">
+<link_ctn id="lsupplier3"/>
+<link_ctn id="lsupermarket3"/>
+</route>
+<route src="supplier3" dst="supermarket4">
+<link_ctn id="lsupplier3"/>
+<link_ctn id="lsupermarket4"/>
+</route>
+<route src="supplier3" dst="supermarket5">
+<link_ctn id="lsupplier3"/>
+<link_ctn id="lsupermarket5"/>
+</route>
+<route src="supplier3" dst="registry">
+<link_ctn id="lsupplier3"/>
+<link_ctn id="lregistry"/>
+</route>
+<route src="supplier3" dst="customer">
+<link_ctn id="lsupplier3"/>
+<link_ctn id="lcustomer"/>
+</route>
+<route src="supplier3" dst="bank">
+<link_ctn id="lsupplier3"/>
+<link_ctn id="lbank"/>
+</route>
+<route src="manufacturer" dst="supermarket1">
+<link_ctn id="lmanufacturer"/>
+<link_ctn id="lsupermarket1"/>
+</route>
+<route src="manufacturer" dst="supermarket2">
+<link_ctn id="lmanufacturer"/>
+<link_ctn id="lsupermarket2"/>
+</route>
+<route src="manufacturer" dst="supermarket3">
+<link_ctn id="lmanufacturer"/>
+<link_ctn id="lsupermarket3"/>
+</route>
+<route src="manufacturer" dst="supermarket4">
+<link_ctn id="lmanufacturer"/>
+<link_ctn id="lsupermarket4"/>
+</route>
+<route src="manufacturer" dst="supermarket5">
+<link_ctn id="lmanufacturer"/>
+<link_ctn id="lsupermarket5"/>
+</route>
+<route src="manufacturer" dst="registry">
+<link_ctn id="lmanufacturer"/>
+<link_ctn id="lregistry"/>
+</route>
+<route src="manufacturer" dst="customer">
+<link_ctn id="lmanufacturer"/>
+<link_ctn id="lcustomer"/>
+</route>
+<route src="manufacturer" dst="bank">
+<link_ctn id="lmanufacturer"/>
+<link_ctn id="lbank"/>
+</route>
+<route src="supermarket1" dst="supermarket2">
+<link_ctn id="lsupermarket1"/>
+<link_ctn id="lsupermarket2"/>
+</route>
+<route src="supermarket1" dst="supermarket3">
+<link_ctn id="lsupermarket1"/>
+<link_ctn id="lsupermarket3"/>
+</route>
+<route src="supermarket1" dst="supermarket4">
+<link_ctn id="lsupermarket1"/>
+<link_ctn id="lsupermarket4"/>
+</route>
+<route src="supermarket1" dst="supermarket5">
+<link_ctn id="lsupermarket1"/>
+<link_ctn id="lsupermarket5"/>
+</route>
+<route src="supermarket1" dst="registry">
+<link_ctn id="lsupermarket1"/>
+<link_ctn id="lregistry"/>
+</route>
+<route src="supermarket1" dst="customer">
+<link_ctn id="lsupermarket1"/>
+<link_ctn id="lcustomer"/>
+</route>
+<route src="supermarket1" dst="bank">
+<link_ctn id="lsupermarket1"/>
+<link_ctn id="lbank"/>
+</route>
+<route src="supermarket2" dst="supermarket3">
+<link_ctn id="lsupermarket2"/>
+<link_ctn id="lsupermarket3"/>
+</route>
+<route src="supermarket2" dst="supermarket4">
+<link_ctn id="lsupermarket2"/>
+<link_ctn id="lsupermarket4"/>
+</route>
+<route src="supermarket2" dst="supermarket5">
+<link_ctn id="lsupermarket2"/>
+<link_ctn id="lsupermarket5"/>
+</route>
+<route src="supermarket2" dst="registry">
+<link_ctn id="lsupermarket2"/>
+<link_ctn id="lregistry"/>
+</route>
+<route src="supermarket2" dst="customer">
+<link_ctn id="lsupermarket2"/>
+<link_ctn id="lcustomer"/>
+</route>
+<route src="supermarket2" dst="bank">
+<link_ctn id="lsupermarket2"/>
+<link_ctn id="lbank"/>
+</route>
+<route src="supermarket3" dst="supermarket4">
+<link_ctn id="lsupermarket3"/>
+<link_ctn id="lsupermarket4"/>
+</route>
+<route src="supermarket3" dst="supermarket5">
+<link_ctn id="lsupermarket3"/>
+<link_ctn id="lsupermarket5"/>
+</route>
+<route src="supermarket3" dst="registry">
+<link_ctn id="lsupermarket3"/>
+<link_ctn id="lregistry"/>
+</route>
+<route src="supermarket3" dst="customer">
+<link_ctn id="lsupermarket3"/>
+<link_ctn id="lcustomer"/>
+</route>
+<route src="supermarket3" dst="bank">
+<link_ctn id="lsupermarket3"/>
+<link_ctn id="lbank"/>
+</route>
+<route src="supermarket4" dst="supermarket5">
+<link_ctn id="lsupermarket4"/>
+<link_ctn id="lsupermarket5"/>
+</route>
+<route src="supermarket4" dst="registry">
+<link_ctn id="lsupermarket4"/>
+<link_ctn id="lregistry"/>
+</route>
+<route src="supermarket4" dst="customer">
+<link_ctn id="lsupermarket4"/>
+<link_ctn id="lcustomer"/>
+</route>
+<route src="supermarket4" dst="bank">
+<link_ctn id="lsupermarket4"/>
+<link_ctn id="lbank"/>
+</route>
+<route src="supermarket5" dst="registry">
+<link_ctn id="lsupermarket5"/>
+<link_ctn id="lregistry"/>
+</route>
+<route src="supermarket5" dst="customer">
+<link_ctn id="lsupermarket5"/>
+<link_ctn id="lcustomer"/>
+</route>
+<route src="supermarket5" dst="bank">
+<link_ctn id="lsupermarket5"/>
+<link_ctn id="lbank"/>
+</route>
+<route src="registry" dst="customer">
+<link_ctn id="lregistry"/>
+<link_ctn id="lcustomer"/>
+</route>
+<route src="registry" dst="bank">
+<link_ctn id="lregistry"/>
+<link_ctn id="lbank"/>
+</route>
+<route src="customer" dst="bank">
+<link_ctn id="lcustomer"/>
+<link_ctn id="lbank"/>
+</route>
+
+ </AS>
+</platform>

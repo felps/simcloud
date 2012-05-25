@@ -1,0 +1,105 @@
+<?xml version='1.0'?>
+<!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid.dtd">
+<platform version="3">
+	<process function="service_chor_controller" host="broker">
+	    <argument value="4"/><!-- number of threads-->
+	    <argument value="broker"/><!--service name-->
+	    <argument value="method"/><!--method-->
+		<argument value="run"/><!-- method name -->
+		<argument value="0"/><!-- method exec time-->
+		<argument value="100"/><!-- method output size -->
+		<argument value="exec"/><!-- exec task -->
+		<argument value="invoke"/><!-- invoke a service -->
+		    <argument value="service1"/><!-- service name to invoke-->
+		    <argument value="call"/><!-- method of service -->
+		    <argument value="100"/><!-- input message size -->
+		<argument value="wait"/><!-- wait invoked service response-->
+	</process>
+
+	<process function="service_chor_controller" host="supermarket1">
+	    <argument value="4"/>
+	    <argument value="service1"/>
+	    <argument value="method"/>
+		<argument value="call"/>
+		<argument value="100"/>
+		<argument value="100"/>
+		<argument value="exec"/>
+		<argument value="invoke"/>
+		    <argument value="service2"/>
+		    <argument value="call"/>
+		    <argument value="100"/>
+		<argument value="wait"/>
+	</process>
+
+	<process function="service_chor_controller" host="supermarket2">
+	    <argument value="4"/>
+	    <argument value="service2"/>
+	    <argument value="method"/>
+		<argument value="call"/>
+		<argument value="100"/>
+		<argument value="100"/>
+		<argument value="exec"/>
+		<argument value="invoke"/>
+		    <argument value="service3"/>
+		    <argument value="call"/>
+		    <argument value="100"/>
+		<argument value="wait"/>
+	</process>
+
+	<process function="service_chor_controller" host="supermarket3">
+	    <argument value="4"/>
+	    <argument value="service3"/>
+	    <argument value="method"/>
+		<argument value="call"/>
+		<argument value="100"/>
+		<argument value="100"/>
+		<argument value="exec"/>
+		<argument value="invoke"/>
+		    <argument value="service4"/>
+		    <argument value="call"/>
+		    <argument value="100"/>
+		<argument value="wait"/>
+	</process>
+
+	<process function="service_chor_controller" host="supermarket4">
+	    <argument value="4"/>
+	    <argument value="service4"/>
+	    <argument value="method"/>
+		<argument value="call"/>
+		<argument value="100"/>
+		<argument value="100"/>
+		<argument value="exec"/>
+		<argument value="invoke"/>
+		    <argument value="service5"/>
+		    <argument value="call"/>
+		    <argument value="100"/>
+		<argument value="wait"/>
+	</process>
+	
+	<process function="service_chor_controller" host="supermarket5">
+	    <argument value="4"/>
+	    <argument value="service5"/>
+	    <argument value="method"/>
+		<argument value="call"/>
+		<argument value="100"/>
+		<argument value="100"/>
+		<argument value="exec"/>
+	</process>
+
+
+	<process function="broker_controller" host="customer">
+	    <argument value="100" /><!-- number of requests -->
+	    <argument value="0" /> <!-- number of requests per second -->
+<!--	    <argument value="broker"/>
+	    <argument value="getLowestPrice"/>
+	    <argument value="641"/>
+-->	    <argument value="broker"/><!-- name of service to invoke-->
+	    <argument value="run"/><!-- name of method of service -->
+	    <argument value="100"/><!-- message input size -->
+<!--	    <argument value="broker"/>
+	    <argument value="getShipmentData"/>
+	    <argument value="641"/>
+   --> 
+    
+	</process>
+</platform>
