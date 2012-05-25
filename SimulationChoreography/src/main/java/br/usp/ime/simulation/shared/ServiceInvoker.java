@@ -7,6 +7,7 @@ import org.simgrid.msg.MsgException;
 import org.simgrid.msg.Process;
 import org.simgrid.msg.Task;
 
+import br.usp.ime.simulation.datatypes.task.CoordinationMessage;
 import br.usp.ime.simulation.datatypes.task.ResponseTask;
 import br.usp.ime.simulation.datatypes.task.WsRequest;
 import br.usp.ime.simulation.experiments.control.ControlVariables;
@@ -16,24 +17,39 @@ public abstract class ServiceInvoker extends Process {
 
 	protected void invokeWsMethod(WsRequest request, String sender,
 			String destination) throws MsgException {
+
 		request.destination = destination;
 		request.senderMailbox = sender;
 
-		String serialization;
 		try {
-
-			serialization = WsRequest.toString(request);
-			String[] args = new String[2];
-			args[0] = serialization;
-			args[1] = destination;
-			new WsRequestSender(args, getHost());
-
+			sendTask(request, sender, destination, WsRequest.toString(request));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		return;
+	}
+
+	protected void sendCoordinationMessage(CoordinationMessage message,
+			String sender, String destination) {
+
+		try {
+			sendTask(message, sender, destination, CoordinationMessage.toString(message));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	private void sendTask(Task request, String sender, String destination,
+			String serializedObject) {
+
+		String serialization;
+
+		serialization = serializedObject;
+		String[] args = new String[2];
+		args[0] = serialization;
+		args[1] = destination;
+		new WsRequestSender(args, getHost());
 
 	}
 
