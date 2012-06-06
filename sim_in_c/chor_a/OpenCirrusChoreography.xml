@@ -1,0 +1,185 @@
+<?xml version='1.0'?>
+<!DOCTYPE platform SYSTEM "http://simgrid.gforge.inria.fr/simgrid.dtd">
+<platform version="3">
+	<process function="service_cordel_controller" host="broker">
+	    <argument value="4"/>
+	    <argument value="brokerResponse"/>
+	    <argument value="method"/>
+		<argument value="response"/>
+		<argument value="0"/><!-- exec time-->
+		<argument value="1000"/><!-- output size -->
+		<argument value="return"/>
+	</process>
+
+    <process function="service_cordel_controller" host="broker">
+	    <argument value="4"/>
+	    <argument value="Verificacao"/>
+	    <argument value="method"/>
+		<argument value="call"/>
+		<argument value="0"/><!-- exec time-->
+		<argument value="0"/><!-- output size -->
+		<argument value="exec"/>
+		<argument value="invoke_a"/>
+		    <argument value="Avaliacao"/>
+		    <argument value="call"/>
+		    <argument value="1000"/>
+	</process>
+
+
+	<process function="service_chor_controller" host="host1">
+	    <argument value="4"/>
+	    <argument value="Service_Avaliacao"/>
+	    <argument value="method"/>
+		<argument value="call"/>
+		<argument value="2000000"/>
+		<argument value="600000000"/>
+		<argument value="exec"/>
+	</process>
+
+	<process function="service_chor_controller" host="host2">
+	    <argument value="4"/>
+	    <argument value="Service_Geracao"/>
+	    <argument value="method"/>
+		<argument value="call"/>
+		<argument value="360000"/>
+		<argument value="1000000"/>
+		<argument value="exec"/>
+	</process>
+
+	<process function="service_chor_controller" host="host3">
+	    <argument value="4"/>
+	    <argument value="Service_Regressao"/>
+	    <argument value="method"/>
+		<argument value="call"/>
+		<argument value="1800000"/>
+		<argument value="1000"/>
+		<argument value="exec"/>
+	</process>
+
+	<process function="service_chor_controller" host="host4">
+	    <argument value="4"/>
+	    <argument value="Service_Localizacao_Ruptura"/>
+	    <argument value="method"/>
+		<argument value="call"/>
+		<argument value="60000"/>
+		<argument value="1000000"/>
+		<argument value="exec"/>
+	</process>
+	
+	<process function="service_chor_controller" host="host5">
+	    <argument value="4"/>
+	    <argument value="Service_Comparacao"/>
+	    <argument value="method"/>
+		<argument value="call"/>
+		<argument value="30000"/>
+		<argument value="1000"/>
+		<argument value="exec"/>
+	</process>
+	
+	<process function="service_cordel_controller" host="host1">
+	    <argument value="4"/>
+	    <argument value="Avaliacao"/>
+	    <argument value="method"/>
+		<argument value="call"/>
+		<argument value="2000000"/>
+		<argument value="0"/>
+		<argument value="invoke"/>
+		    <argument value="Service_Avaliacao"/>
+		    <argument value="call"/>
+		    <argument value="1000"/>
+		<argument value="wait"/>
+		<argument value="invoke_a"/>
+		    <argument value="Geracao"/>
+		    <argument value="call"/>
+		    <argument value="600000000"/>
+	</process>
+
+	<process function="service_cordel_controller" host="host2">
+	    <argument value="4"/>
+	    <argument value="Geracao"/>
+	    <argument value="method"/>
+		<argument value="call"/>
+		<argument value="360000"/>
+		<argument value="0"/>
+		<argument value="invoke"/>
+		    <argument value="Service_Geracao"/>
+		    <argument value="call"/>
+		    <argument value="600000000"/>
+		<argument value="wait"/>
+		<argument value="invoke_a"/>
+		    <argument value="Regressao"/>
+		    <argument value="call"/>
+		    <argument value="1000000"/>
+	</process>
+
+	<process function="service_cordel_controller" host="host3">
+	    <argument value="4"/>
+	    <argument value="Regressao"/>
+	    <argument value="method"/>
+		<argument value="call"/>
+		<argument value="1800000"/>
+		<argument value="0"/>
+		<argument value="invoke"/>
+		    <argument value="Service_Regressao"/>
+		    <argument value="call"/>
+		    <argument value="1000000"/>
+		<argument value="wait"/>
+		<argument value="invoke_a"/>
+		    <argument value="Localizacao_Ruptura"/>
+		    <argument value="call"/>
+		    <argument value="1000"/>
+	</process>
+
+	<process function="service_cordel_controller" host="host4">
+	    <argument value="4"/>
+	    <argument value="Localizacao_Ruptura"/>
+	    <argument value="method"/>
+		<argument value="call"/>
+		<argument value="60000"/>
+		<argument value="0"/>
+		<argument value="invoke"/>
+		    <argument value="Service_Localizacao_Ruptura"/>
+		    <argument value="call"/>
+		    <argument value="1000"/>
+		<argument value="wait"/>
+		<argument value="invoke_a"/>
+		    <argument value="Comparacao"/>
+		    <argument value="call"/>
+		    <argument value="1000000"/>
+	</process>
+	
+	<process function="service_cordel_controller" host="host5">
+	    <argument value="4"/>
+	    <argument value="Comparacao"/>
+	    <argument value="method"/>
+		<argument value="call"/>
+		<argument value="30000"/>
+		<argument value="0"/>
+		<argument value="invoke"/>
+		    <argument value="Service_Comparacao"/>
+		    <argument value="call"/>
+		    <argument value="1000000"/>
+		<argument value="wait"/>
+		<argument value="invoke_a"/>
+		    <argument value="brokerResponse"/>
+		    <argument value="response"/>
+		    <argument value="1000"/>
+	</process>
+
+
+	<process function="broker_controller" host="customer">
+	    <argument value="1000" />
+	    <argument value="1000" /> 
+<!--	    <argument value="broker"/>
+	    <argument value="getLowestPrice"/>
+	    <argument value="641"/>
+-->	    <argument value="Verificacao"/>
+	    <argument value="call"/>
+	    <argument value="1000"/>
+<!--	    <argument value="broker"/>
+	    <argument value="getShipmentData"/>
+	    <argument value="641"/>
+   --> 
+    
+	</process>
+</platform>

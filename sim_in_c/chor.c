@@ -39,6 +39,137 @@ int service_controller(int argc,char *argv[]){
     }
 }
 
+int service_cordel_controller(int argc,char *argv[]){
+    int count = argc-1;
+    char **arg=(char **)calloc(count,sizeof(char*));
+    int process_number = atoi(argv[1]);
+    m_process_t process_list[process_number];
+    arg[0] = strdup("service_cordel");
+    int i;
+    for(i=2;i<argc;i++){
+	arg[i-1] = strdup(argv[i]);
+    }
+    
+    XBT_INFO("initializing service: %s",arg[1]);
+
+    //create a number of process
+    for(i=0;i<process_number;i++){
+	process_list[i] = MSG_process_create_with_arguments(arg[0],service_cordel,NULL,MSG_host_self(),count,arg);
+    }
+    MSG_process_sleep(MAX_TIME_SIMULATION);    
+    //kill all process in process_list
+    for(i=0;i<process_number;i++){
+	MSG_process_kill(process_list[i]);
+    }
+}
+
+int service_cordel(int argc,char *argv[]){
+    chor_method_data list_methods[12];
+    int list_methods_len = 0;
+    char mailbox[50];
+    strcpy(mailbox,argv[1]);
+    XBT_INFO("created service %s",mailbox);
+    int count_arg = 2;
+    while(count_arg < argc){
+	//add method
+	if(strcmp(argv[count_arg],"method") == 0){
+	    count_arg++;
+	    make_chor_method(&list_methods[list_methods_len],argv[count_arg],argv[count_arg+1],argv[count_arg+2]);
+
+	    XBT_INFO("method: %s",argv[count_arg]);
+	    count_arg = count_arg+3;
+	    //add instructions
+	    int number_of_instruction = 0;
+	    while(strcmp(argv[count_arg],"method") != 0){
+		if(strcmp(argv[count_arg],"invoke") == 0){
+		    make_instruction(&list_methods[list_methods_len].instructions[number_of_instruction],INVOKE,argv[count_arg+1],argv[count_arg+2],atof(argv[count_arg+3]));
+		    count_arg = count_arg+4;
+		}else if(strcmp(argv[count_arg],"invoke_a") == 0){
+		    make_instruction(&list_methods[list_methods_len].instructions[number_of_instruction],INVOKE_A,argv[count_arg+1],argv[count_arg+2],atof(argv[count_arg+3]));
+		    count_arg = count_arg+4;
+		}else if(strcmp(argv[count_arg],"exec") == 0){
+			list_methods[list_methods_len].instructions[number_of_instruction].type = EXEC;
+			count_arg++;
+		}else if(strcmp(argv[count_arg],"wait") == 0){
+			list_methods[list_methods_len].instructions[number_of_instruction].type = WAIT;
+			count_arg++;
+		}else if(strcmp(argv[count_arg],"return") == 0){
+			list_methods[list_methods_len].instructions[number_of_instruction].type = RETURN;
+			count_arg++;
+		    }else{
+			XBT_WARN("parser arguments error");
+			return 1;}
+		number_of_instruction++;
+		if(count_arg >= argc){
+		    break;
+		}
+	    }
+	    list_methods[list_methods_len].instructions_len = number_of_instruction;
+	    list_methods_len++;
+	}
+    }
+    
+    run_service_cordel(list_methods_len,list_methods,mailbox);
+}
+
+void run_service_cordel(int list_methods_len,chor_method_data list_methods[],char mailbox[]){
+    m_task_t received_task = NULL;
+    MSG_error_t res = MSG_OK;
+    msg_comm_t msg_recv = NULL;
+    static int id_sender = 0;
+    char sender_name[50];
+    sprintf(sender_name,"%s_%d",mailbox,id_sender++);
+    int waiting_count = 0;
+    while(1){
+	msg_recv = MSG_task_irecv(&(received_task),mailbox);
+	res = MSG_comm_wait(msg_recv,-1);
+	if(res == MSG_OK){
+	    char task_name[100];
+	    strcpy(task_name,MSG_task_get_name(received_task));
+	    task_data *received_task_data = (task_data *) received_task->data;
+	    XBT_INFO("received task %lf",received_task_data->id);
+	   // double endtime = MSG_get_clock();
+	   // write_log(received_task_data->starttime,endtime,"waiting time");
+	   //received_task_data->starttime = endtime;
+	   int index_method = find_method(list_methods_len,list_methods,task_name);
+	    chor_method_data method_data = list_methods[index_method];
+	    int i;
+	    for(i = 0;i<method_data.instructions_len;i++){
+		method_instruction instruction = method_data.instructions[i];
+		if(instruction.type == INVOKE){
+		    service_invoke(instruction.role,instruction.method_name,instruction.input_size,sender_name);
+		    waiting_count++;
+		}else if(instruction.type == INVOKE_A){
+		    service_invoke_cordel(instruction.role,instruction.method_name,instruction.input_size,received_task_data);
+		}else if(instruction.type == EXEC){
+		    run_chor_task(task_name,method_data);
+		    }
+		else if(instruction.type == WAIT){
+		    wait_task(sender_name,waiting_count);
+		    waiting_count = 0;
+		    }
+		else if(instruction.type == RETURN){
+		    return_task(task_name,received_task,method_data.output_size);
+		}
+	    }
+	}
+	received_task = NULL;
+    }
+}
+int service_invoke_cordel(char role[],char method_name[],double size,task_data *data){
+	msg_comm_t msg_send;
+
+	m_task_t task =  MSG_task_create(method_name,0,size,NULL);
+	task->data = data;
+	msg_send = MSG_task_isend(task,role);
+
+	task_data data_to_print = *(task_data *)task->data;
+	XBT_INFO("sending task %lf to %s",data_to_print.id,role);
+	//double endtime = MSG_get_clock();
+	//write_log(data_received.starttime,endtime);
+}
+
+
 int service_chor_controller(int argc,char *argv[]){
     int count = argc-1;
     char **arg=(char **)calloc(count,sizeof(char*));
@@ -298,7 +429,8 @@ int broker_controller(int argc, char *argv[]){
     //create a number of process
     for(i=0;i<process_number;i++){
 	process_list[i] = MSG_process_create_with_arguments(arg[0],broker,NULL,MSG_host_self(),count,arg);
-	MSG_process_sleep(atoi(argv[2]));
+	if ((i+1) >= atoi(argv[2])  && (((i+1) % (atoi(argv[2]))) == 0))
+	    MSG_process_sleep(1);
     }
     MSG_process_sleep(MAX_TIME_SIMULATION);    
     //kill all process
@@ -390,13 +522,16 @@ MSG_error_t run(const char *platform_file,const char *application_file)
     MSG_create_environment(platform_file);
 
     /*   Application deployment */
+    MSG_function_register("service_cordel",service_cordel);
     MSG_function_register("service_chor",service_chor);
     MSG_function_register("service", service);
     MSG_function_register("broker",broker);
     MSG_function_register("service_controller",service_controller);
     MSG_function_register("broker_controller",broker_controller);
     MSG_function_register("service_chor_controller",service_chor_controller);
+    MSG_function_register("service_cordel_controller",service_cordel_controller);
     MSG_launch_application(application_file);
+
 
     res = MSG_main();
 

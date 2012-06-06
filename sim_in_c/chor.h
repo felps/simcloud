@@ -1,7 +1,7 @@
 #ifndef CHOR_STRUCTS
 #define CHOR_STRUCTS
 
-enum {INVOKE,EXEC,WAIT};
+enum {INVOKE,EXEC,WAIT,RETURN,INVOKE_A};
 
 typedef struct method_instruction {
     int type;//invoke or exec
@@ -37,6 +37,11 @@ typedef struct task_data{
 }task_data;
 #endif
 
+
+int service_invoke_cordel(char role[],char method_name[],double size,task_data *data);
+int service_cordel_controller(int argc,char *argv[]);
+int service_cordel(int argc,char *argv[]);
+void run_service_cordel(int list_methods_len,chor_method_data list_methods[],char mailbox[]);
 int wait_task(char sender_name[],int waiting_count);
 int service_chor_controller(int argc,char *argv[]);
 int service_invoke(char role[],char method_name[],double size,char sender_name[]);
