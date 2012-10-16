@@ -17,3 +17,8 @@
 *.war
 /.metadata/
 .metadata/
+*CMakeFiles/
+*Makefile
+CMakeCache*.*
+cmake_install.*
+

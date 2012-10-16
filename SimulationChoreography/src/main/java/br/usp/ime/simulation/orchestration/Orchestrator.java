@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.runner.Request;
+//import org.junit.runner.Request;
 import org.simgrid.msg.Msg;
 import org.simgrid.msg.MsgException;
 

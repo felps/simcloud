@@ -2,7 +2,7 @@ package br.usp.ime.simulation.shared;
 
 import java.io.IOException;
 
-import org.junit.runner.Request;
+//import org.junit.runner.Request;
 import org.simgrid.msg.Task;
 
 import commTime.FinalizeTask;
